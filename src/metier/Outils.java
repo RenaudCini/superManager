@@ -1,13 +1,12 @@
 package metier;
 
-import metier.Heros.FormatType;
-
-import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.HashMap;
+
 import java.util.Scanner;
 
 public abstract class Outils {
@@ -31,26 +30,52 @@ public abstract class Outils {
         return integer;
     }
 
-    public static void creatEntiteByUser(Object instance, HashMap<Integer, FormatType> map, Scanner scan) {
-        map.forEach((k, v) -> {
-            System.out.println(v.text);
-            String type = Arrays.toString(v.setter.getParameterTypes());
-            System.out.println(type);
-            try {
-                if (type.equals("[class java.lang.String]")) {
-                    String value = scan.nextLine();
-                    value = !value.equals("") ? value : null;
-                    v.setter.invoke(instance, value);
-                } else if (type.equals("[class java.lang.Integer]")) {
-                    Integer value = Outils.scanInteger(scan);
-                    v.setter.invoke(instance, value);
+    private static String capitalize(String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
+    }
+
+    public static void creatEntiteByUser(Object instance, Scanner scan) throws IllegalAccessException {
+
+        Class<?> clazz = instance.getClass();
+        boolean element = true;
+        while (element) {
+            for (Field field : clazz.getDeclaredFields()) {
+                String idClass = "entite." + capitalize(field.getName().replace("Id", ""));
+                if (!clazz.getName().equals(idClass)) {
+
+
+
+                    if (field.getType().toString().equals("class java.lang.String")) {
+                        System.out.println(field.getName());
+                        String value = scan.nextLine();
+                        value = !value.equals("") ? value : null;
+                        try {
+                            String setter = "set" + capitalize(field.getName());
+                            instance.getClass().getMethod(setter, String.class).invoke(instance, value);
+                        } catch (InvocationTargetException | NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (field.getType().toString().equals("class java.lang.Integer")) {
+                        System.out.println(field.getName());
+                        Integer value = Outils.scanInteger(scan);
+                        try {
+                            String setter = "set" + capitalize(field.getName().toString());
+                            instance.getClass().getMethod(setter, Integer.class).invoke(instance, value);
+                        } catch (InvocationTargetException | NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                 }
 
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
             }
-        });
 
+            if (Arrays.toString(new Class[]{clazz.getSuperclass()}).equals("[class java.lang.Object]")) {
+                element = false;
+            } else {
+                clazz = clazz.getSuperclass();
+            }
+        }
     }
 
 }

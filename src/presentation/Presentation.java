@@ -8,6 +8,7 @@ import entite.Organisation;
 import metier.Heros.HerosMetier;
 import metier.Outils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -63,7 +64,7 @@ public class Presentation {
                                             heros.getOrganisation().setId(1);
                                             HerosDAO h = new HerosDAO();
                                             h.cree(heros);
-                                        } catch (NoSuchMethodException e) {
+                                        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException | ClassNotFoundException e) {
                                             e.printStackTrace();
                                         }
                                         break;
