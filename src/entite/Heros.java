@@ -11,6 +11,12 @@ public class Heros extends SuperPersonnage {
         super();
     }
 
+    /**
+     *
+     * @param nom
+     * @param identiteSecrete
+     * @param organisation
+     */
     public Heros(String nom, String identiteSecrete, Organisation organisation) {
 
         super(nom, identiteSecrete);

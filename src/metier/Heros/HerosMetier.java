@@ -15,7 +15,7 @@ public class HerosMetier {
     protected Heros heros;
 
 
-    public HerosMetier(Heros heros, Scanner scan) throws NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException, ClassNotFoundException {
+    public HerosMetier(Heros heros, Scanner scan) throws IllegalAccessException {
 
         Outils.creatEntiteByUser(heros,scan);
 

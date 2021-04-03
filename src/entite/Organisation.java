@@ -4,29 +4,29 @@ import java.util.Date;
 
 public class Organisation {
 
-    private Integer id;
+    private Integer organisationId;
     private String nom;
-    private String nom_dirigeant;
+    private String nomDirigeant;
     private String adresse;
     private String commentaire;
-    private Date date_dajout;
+    private Date dateAjout;
 
-    public Organisation (String nom,Integer id) {
+    public Organisation (String nom,Integer organisationId) {
 
         this.nom = nom;
-        this.id = id;
+        this.organisationId = organisationId;
     }
-    public Organisation (Integer id) {
+    public Organisation (Integer organisationId) {
 
-        this.id = id;
+        this.organisationId = organisationId;
     }
 
     public Integer getId() {
-        return id;
+        return organisationId;
     }
 
-    public Organisation setId(Integer id) {
-        this.id = id;
+    public Organisation setId(Integer organisationId) {
+        this.organisationId = organisationId;
         return this;
     }
 
@@ -39,12 +39,12 @@ public class Organisation {
         return this;
     }
 
-    public String getNom_dirigeant() {
-        return nom_dirigeant;
+    public String getNomDirigeant() {
+        return nomDirigeant;
     }
 
-    public Organisation setNom_dirigeant(String nom_dirigeant) {
-        this.nom_dirigeant = nom_dirigeant;
+    public Organisation setNomDirigeant(String nomDirigeant) {
+        this.nomDirigeant = nomDirigeant;
         return this;
     }
 
@@ -66,12 +66,12 @@ public class Organisation {
         return this;
     }
 
-    public Date getDate_dajout() {
-        return date_dajout;
+    public Date getDateAjout() {
+        return dateAjout;
     }
 
-    public Organisation setDate_dajout(Date date_dajout) {
-        this.date_dajout = date_dajout;
+    public Organisation setDateAjout(Date dateAjout) {
+        this.dateAjout = dateAjout;
         return this;
     }
 }

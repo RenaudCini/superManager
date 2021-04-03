@@ -2,7 +2,7 @@ package entite;
 
 public class Element {
 
-    private Integer id =1;
+    private Integer elementId =1;
     private String nom;
 
     public Element(String nom) {
@@ -10,11 +10,11 @@ public class Element {
     }
 
     public Integer getId() {
-        return id;
+        return elementId;
     }
 
-    public Element setId(Integer id) {
-        this.id = id;
+    public Element setId(Integer elementId) {
+        this.elementId = elementId;
         return this;
     }
 

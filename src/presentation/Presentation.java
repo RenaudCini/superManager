@@ -26,7 +26,7 @@ public class Presentation {
 
     }
 
-    public void logiquePresentation() {
+    public void logiquePresentation() throws IllegalAccessException {
         int choix = 0;
         scan = new Scanner(System.in);
 
@@ -56,7 +56,7 @@ public class Presentation {
                                         Element element = new Element(nameElement);
                                         Heros heros = new Heros();
                                         scan = new Scanner(System.in);
-                                        try {
+
                                             HerosMetier hm = new HerosMetier(heros, scan);
                                             heros.setElement(element);
                                             heros.getElement().setId(1);
@@ -64,9 +64,7 @@ public class Presentation {
                                             heros.getOrganisation().setId(1);
                                             HerosDAO h = new HerosDAO();
                                             h.cree(heros);
-                                        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException | ClassNotFoundException e) {
-                                            e.printStackTrace();
-                                        }
+
                                         break;
                                     case 2:
 

@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 public class Groupe {
 
-    private Integer id;
+    private Integer groupeId;
     private ArrayList<Heros> listeHeros;
     private ArrayList<Vilain> listeVilains;
 
     public Groupe(int id, ArrayList<Heros> listeHeros, ArrayList<Vilain> listeVilains) {
-        this.id = id;
+        this.groupeId = id;
         this.listeHeros = listeHeros;
         this.listeVilains = listeVilains;
     }
 
     public Integer getId() {
-        return id;
+        return groupeId;
     }
 
-    public Groupe setId(Integer id) {
-        this.id = id;
+    public Groupe setId(Integer groupeId) {
+        this.groupeId = groupeId;
         return this;
     }
 

@@ -108,8 +108,6 @@ public class SuperPersonnage {
     // METHODES DE LA CLASSE
     public void attaquer() {
         System.out.println("Get shit on kid");
-
-        // vie vilain - Degats hero
     }
 
 }
