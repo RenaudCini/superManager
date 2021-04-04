@@ -1,5 +1,7 @@
 package metier;
 
+import entite.Heros;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
@@ -12,17 +14,24 @@ import java.util.Scanner;
 @SuppressWarnings("ALL")
 public abstract class Outils {
 
+    public Outils() {
+        super();
+    }
+
     /**
      * prepare les requete en enoyant un array
+     *
      * @param prepare
      * @param arrayPrepare
      * @throws SQLException
      */
     public static void prepareRequest(PreparedStatement prepare, Object[] arrayPrepare) throws SQLException {
+        //on boucle sur l'array ou ce toruve les variable a preparé
         for (int i = 0; i < arrayPrepare.length; i++) {
+           //si c'est integer
             if (arrayPrepare[i] instanceof Integer) {
                 prepare.setInt(i + 1, (Integer) arrayPrepare[i]);
-
+                //si c'est String
             } else if (arrayPrepare[i] instanceof String) {
                 prepare.setString(i + 1, (String) arrayPrepare[i]);
             } else {
@@ -43,7 +52,8 @@ public abstract class Outils {
     }
 
     /**
-     * renvoie une Sting avec la premier lettre en majuscule
+     * renvoie une String avec la premier lettre en majuscule
+     *
      * @param string
      * @return
      */
@@ -52,50 +62,103 @@ public abstract class Outils {
     }
 
 
-
-    public static void creatEntiteByUser(Object instance, Scanner scan) throws IllegalAccessException {
+    /**
+     * demande a l'utilsateeur d'entré une valeur pour chauqe attribut
+     * <p>
+     * Condition
+     * -ID des classe format: [nomClassId]
+     * -fonction to string des classe format a rescpecter: [nom =valeur,]
+     *
+     * @param instance
+     * @param scan
+     */
+    public static Object AfficherTextCreationEntite(Object instance, Scanner scan) {
 
         Class<?> clazz = instance.getClass();
 
+        //on splite  en array a chaque virgule le resultat de la fonction to string virgule
+        String[] split = instance.toString().split(",");
+        String nomAfficher = null;
+        String elementCourant = null;
+        Integer i = 0;
+
         boolean element = true;
         while (element) {
-
+                //boucle sur tous les attribu de la class
             for (Field field : clazz.getDeclaredFields()) {
+                // si i est inferieur au nombre d'attribut qu il y a dans la fonction to string
+                if (i < split.length) {
+                    nomAfficher = null;
+                    String type = field.getType().toString();
+                    // test si la valeur n'est pas egale a id de l'entité
+                    elementCourant = split[i];
 
-                String idClass = "entite." + capitalize(field.getName().replace("Id", ""));
-                String type = field.getType().toString();
-
-                // test si la valeur n'est pas egale a id de l'entité
-                if (!clazz.getName().equals(idClass)) {
-                    if (type.equals("class java.lang.String")) {
-                        System.out.println(field.getName());
-                        String value = scan.nextLine();
-                        value = !value.equals("") ? value : null;
-                        try {
-                            String setter = "set" + capitalize(field.getName());
-                            instance.getClass().getMethod(setter, String.class).invoke(instance, value);
-                        } catch (InvocationTargetException | NoSuchMethodException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (type.equals("class java.lang.Integer")) {
-                        System.out.println(field.getName());
-                        Integer value = Outils.scanInteger(scan);
-                        try {
-                            String setter = "set" + capitalize(field.getName().toString());
-                            instance.getClass().getMethod(setter, Integer.class).invoke(instance, value);
-                        } catch (InvocationTargetException | NoSuchMethodException e) {
-                            e.printStackTrace();
-                        }
+                    if (!field.getName().contains("Id") && !elementCourant.contains("Id")) {
+                        nomAfficher = elementCourant.replace("=null", "");
+                        i = testTypeVariable(instance, type, field, scan, nomAfficher, i);
                     }
+
                 }
             }
+            //il n'y a pas de classe super
             if (Arrays.toString(new Class[]{clazz.getSuperclass()}).equals("[class java.lang.Object]")) {
                 element = false;
             } else {
+                //on lui redefini la class par sa super classe
                 clazz = clazz.getSuperclass();
             }
         }
+        return instance;
     }
+
+    /**
+     *
+     * @param instance
+     * @param type
+     * @param field
+     * @param scan
+     * @param nomAfficher
+     * @param i
+     * @return
+     */
+    public static Integer testTypeVariable(Object instance, String type, Field field, Scanner scan, String nomAfficher, Integer i) {
+
+        Object value = null;
+        String setter = "set" + capitalize(field.getName());
+        Class<?> typeSetter = String.class;
+
+        //si la valeur demander est une string
+        if (type.equals("class java.lang.String")) {
+            System.out.println(nomAfficher);
+            value = new String(scan.nextLine());
+            value = !value.equals("") ? value : null;
+            typeSetter = String.class;
+
+            //si la valeur demander est une Integer
+        } else if (type.equals("class java.lang.Integer")) {
+            System.out.println(nomAfficher);
+            value = new Integer(Outils.scanInteger(scan));
+            typeSetter = Integer.class;
+
+            //si la valeur demander est une Object
+        } else if (type.toString().contains("entite.")) {
+            return i;
+            /*  str = str.replaceAll("\\s", "");*/
+
+        } else {
+            return i;
+        }
+        i++;
+        //appel le setter assaocier a valeur demandé
+        try {
+            instance.getClass().getMethod(setter, typeSetter).invoke(instance, value);
+
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
 
 }
 

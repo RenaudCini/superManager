@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * connexion a la bdd
+ */
 public class DAO {  private static String url = "jdbc:mysql://localhost:3306/supermanager?autoReconnect=true&useSSL=false";
     private static String user = "root";
     private static String passwd = "";

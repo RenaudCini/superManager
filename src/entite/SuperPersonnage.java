@@ -40,11 +40,14 @@ public class SuperPersonnage {
         this.element = element;
     }
 
-
     public Integer getSuperPersonnageId() {
         return superPersonnageId;
     }
 
+    public SuperPersonnage setSuperPersonnageId(Integer superPersonnageId) {
+        this.superPersonnageId = superPersonnageId;
+        return this;
+    }
 
     public String getNom() {
         return nom;
@@ -93,11 +96,6 @@ public class SuperPersonnage {
 
     public Element getElement() {
         return element;
-    }
-
-    public SuperPersonnage setSuperPersonnageId(Integer superPersonnageId) {
-        this.superPersonnageId = superPersonnageId;
-        return this;
     }
 
     public SuperPersonnage setElement(Element element) {

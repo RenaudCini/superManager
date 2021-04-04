@@ -26,7 +26,7 @@ public class Presentation {
 
     }
 
-    public void logiquePresentation() throws IllegalAccessException {
+    public void logiquePresentation() {
         int choix = 0;
         scan = new Scanner(System.in);
 
@@ -34,7 +34,6 @@ public class Presentation {
         do {
             choix = menu(liste);
             if (choix != 0) {
-
                 switch (choix) {
                     case 1:
                         int choixCreation;
@@ -47,23 +46,8 @@ public class Presentation {
                                         System.out.println("---- CREE UN SUPER HERO ----");
                                         System.out.println("saisisez les information suivante");
 
-                                        System.out.println("Id de l'organisation");
-                                        Integer idOrganisation = Outils.scanInteger(scan);
-                                        Organisation organisation = new Organisation(idOrganisation);
-
-                                        System.out.println("Element");
-                                        String nameElement = scan.nextLine();
-                                        Element element = new Element(nameElement);
                                         Heros heros = new Heros();
-                                        scan = new Scanner(System.in);
-
-                                            HerosMetier hm = new HerosMetier(heros, scan);
-                                            heros.setElement(element);
-                                            heros.getElement().setId(1);
-                                            heros.setOrganisation(organisation);
-                                            heros.getOrganisation().setId(1);
-                                            HerosDAO h = new HerosDAO();
-                                            h.cree(heros);
+                                        heros.creeHero(scan);
 
                                         break;
                                     case 2:

@@ -1,6 +1,11 @@
 package entite;
 
 
+import donnees.HerosDAO;
+import metier.Outils;
+
+import java.util.Scanner;
+
 public class Heros extends SuperPersonnage {
 
     private String pouvoir;
@@ -12,7 +17,6 @@ public class Heros extends SuperPersonnage {
     }
 
     /**
-     *
      * @param nom
      * @param identiteSecrete
      * @param organisation
@@ -56,6 +60,43 @@ public class Heros extends SuperPersonnage {
 
     public Heros setOrganisation(Organisation organisation) {
         this.organisation = organisation;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return
+                        "pouvoir =" + pouvoir +
+                        ",degats du Pouvoir =" + degatsPouvoir +
+                        ",nom =" + getNom()+
+                        ",identite Secrete =" + getIdentiteSecrete() +
+                        ",commentaire =" + getCommentaire() +
+                        ",point de vie =" + getPdv() +
+                        ",degats =" + getDegats();
+    }
+
+    /**
+     * cree un hero
+     * @param scan
+     * @return
+     */
+    public Heros creeHero(Scanner scan) {
+
+        // TODO: 04/04/2021  a supprimer
+        System.out.println("Id de l'organisation");
+        Integer idOrganisation = Outils.scanInteger(scan);
+        Organisation organisation = new Organisation(idOrganisation);
+        System.out.println("Element");
+        String nameElement = scan.nextLine();
+        Element element = new Element(nameElement);
+        setElement(element);
+        getElement().setId(1);
+        setOrganisation(organisation);
+        getOrganisation().setId(1);
+
+        Outils.AfficherTextCreationEntite(this, scan);
+        HerosDAO herosDAO = new HerosDAO();
+        herosDAO.cree(this);
         return this;
     }
 }
