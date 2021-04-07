@@ -1,22 +1,12 @@
 package presentation;
 
-
-import donnees.HerosDAO;
-import entite.Element;
 import entite.Heros;
-import entite.Organisation;
-import metier.Heros.HerosMetier;
-import metier.Outils;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * Classe pr�sentation via un menu
  *
- * @author Tophe
+ *
  */
 public class Presentation {
 
@@ -79,8 +69,6 @@ public class Presentation {
                     default:
                         // code block
                 }
-
-
             }
         } while (choix != 0);
     }

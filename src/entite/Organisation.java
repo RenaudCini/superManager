@@ -20,6 +20,10 @@ public class Organisation {
 
         this.organisationId = organisationId;
     }
+    public Organisation () {
+
+        this.organisationId = organisationId;
+    }
 
     public Integer getId() {
         return organisationId;
@@ -73,5 +77,17 @@ public class Organisation {
     public Organisation setDateAjout(Date dateAjout) {
         this.dateAjout = dateAjout;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "organisationId =" + organisationId +
+                ",nom =" + nom +
+                ",nomDirigeant =" + nomDirigeant +
+                ",adresse =" + adresse +
+                ",commentaire =" + commentaire +
+                ",dateAjout =" + dateAjout;
+
     }
 }

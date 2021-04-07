@@ -1,7 +1,5 @@
 package metier;
 
-import entite.Heros;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
@@ -72,32 +70,31 @@ public abstract class Outils {
      * @param instance
      * @param scan
      */
+
     public static Object AfficherTextCreationEntite(Object instance, Scanner scan) {
 
         Class<?> clazz = instance.getClass();
-
         //on splite  en array a chaque virgule le resultat de la fonction to string virgule
         String[] split = instance.toString().split(",");
-        String nomAfficher = null;
+        String attributDemander = null;
         String elementCourant = null;
         Integer i = 0;
 
         boolean element = true;
         while (element) {
-                //boucle sur tous les attribu de la class
+                //boucle sur tous les attributs de la classe
             for (Field field : clazz.getDeclaredFields()) {
-                // si i est inferieur au nombre d'attribut qu il y a dans la fonction to string
+                // si i est inferieur au nombre d'attribut qu'il y a dans la fonction to string
                 if (i < split.length) {
-                    nomAfficher = null;
+                    attributDemander = null;
                     String type = field.getType().toString();
                     // test si la valeur n'est pas egale a id de l'entité
                     elementCourant = split[i];
 
                     if (!field.getName().contains("Id") && !elementCourant.contains("Id")) {
-                        nomAfficher = elementCourant.replace("=null", "");
-                        i = testTypeVariable(instance, type, field, scan, nomAfficher, i);
+                        attributDemander = elementCourant.replace("=null", "");
+                        i = testTypeVariable(instance, type, field, scan, attributDemander, i);
                     }
-
                 }
             }
             //il n'y a pas de classe super
@@ -121,7 +118,7 @@ public abstract class Outils {
      * @param i
      * @return
      */
-    public static Integer testTypeVariable(Object instance, String type, Field field, Scanner scan, String nomAfficher, Integer i) {
+    public static Integer testTypeVariable(Object instance, String type, Field field, Scanner scan, String attributDemander, Integer i) {
 
         Object value = null;
         String setter = "set" + capitalize(field.getName());
@@ -129,14 +126,14 @@ public abstract class Outils {
 
         //si la valeur demander est une string
         if (type.equals("class java.lang.String")) {
-            System.out.println(nomAfficher);
+            System.out.println(attributDemander);
             value = new String(scan.nextLine());
             value = !value.equals("") ? value : null;
             typeSetter = String.class;
 
             //si la valeur demander est une Integer
         } else if (type.equals("class java.lang.Integer")) {
-            System.out.println(nomAfficher);
+            System.out.println(attributDemander);
             value = new Integer(Outils.scanInteger(scan));
             typeSetter = Integer.class;
 
@@ -144,7 +141,6 @@ public abstract class Outils {
         } else if (type.toString().contains("entite.")) {
             return i;
             /*  str = str.replaceAll("\\s", "");*/
-
         } else {
             return i;
         }

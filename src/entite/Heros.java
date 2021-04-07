@@ -55,6 +55,7 @@ public class Heros extends SuperPersonnage {
     }
 
     public Organisation getOrganisation() {
+
         return organisation;
     }
 
@@ -87,13 +88,13 @@ public class Heros extends SuperPersonnage {
         Integer idOrganisation = Outils.scanInteger(scan);
         Organisation organisation = new Organisation(idOrganisation);
         System.out.println("Element");
+
         String nameElement = scan.nextLine();
         Element element = new Element(nameElement);
         setElement(element);
         getElement().setId(1);
         setOrganisation(organisation);
         getOrganisation().setId(1);
-
         Outils.AfficherTextCreationEntite(this, scan);
         HerosDAO herosDAO = new HerosDAO();
         herosDAO.cree(this);
