@@ -45,8 +45,6 @@ public class Presentation {
 
                                         break;
                                     case 2:
-                                        OrganisationDAO organisation = new OrganisationDAO();
-                                        organisation.findAllByOrganisation();
                                         System.out.println("---- CREER UN SUPER VILAIN ----");
                                         System.out.println("Saisissez les informations suivantes");
 
@@ -65,6 +63,8 @@ public class Presentation {
                         } while (choixCreation != 0);
                         break;
                     case 2:
+                        OrganisationDAO organisation = new OrganisationDAO();
+                        organisation.findAllByOrganisation();
                         // code block
                         break;
                     case 3:
