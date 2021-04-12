@@ -39,6 +39,7 @@ public class Heros extends SuperPersonnage {
     */
 
     public String getPouvoir() {
+
         return pouvoir;
     }
 
@@ -48,6 +49,7 @@ public class Heros extends SuperPersonnage {
     }
 
     public Integer getDegatsPouvoir() {
+
         return degatsPouvoir;
     }
 
@@ -96,7 +98,9 @@ public class Heros extends SuperPersonnage {
         setElement(element);
         getElement().setId(1);
         setOrganisation(organisation);
-        getOrganisation().setId(1);
+        getOrganisation().setOrganisationId(1);
+
+
         Outils.AfficherTextCreationEntite(this, scan);
         HerosDAO herosDAO = new HerosDAO();
         herosDAO.cree(this);

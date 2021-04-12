@@ -1,7 +1,10 @@
 package presentation;
 
+import donnees.OrganisationDAO;
 import entite.Heros;
 import entite.Vilain;
+import entite.Organisation;
+
 import metier.HerosMetier;
 import metier.Outils;
 
@@ -53,19 +56,18 @@ public class Presentation {
 
                                         break;
                                     case 4:
-
                                         break;
                                     case 5:
-
                                         choixCreation = 0;
                                         break;
                                     default:
-
                                 }
                             }
                         } while (choixCreation != 0);
                         break;
                     case 2:
+                        OrganisationDAO organisation = new OrganisationDAO();
+                        organisation.findAllByOrganisation();
                         // code block
                         break;
                     // Modification :

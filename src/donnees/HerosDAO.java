@@ -24,7 +24,7 @@ public class HerosDAO extends SuperPersonnageDAO {
             PreparedStatement prepare = this.bdd.prepareStatement("INSERT INTO heros (pouvoir, degats_pouvoir, super_personnage_id, organisation_id) VALUES (?, ?, ?, ?)");
 
             //creation d'un array contenant  les variable a prepare
-            Object[] arrayPrepare = new Object[]{heros.getPouvoir(), heros.getDegatsPouvoir(), heros.getSuperPersonnageId(),heros.getOrganisation().getId()};
+            Object[] arrayPrepare = new Object[]{heros.getPouvoir(), heros.getDegatsPouvoir(), heros.getSuperPersonnageId(),heros.getOrganisation().getOrganisationId()};
             Outils.prepareRequest(prepare,arrayPrepare);
             prepare.executeUpdate();
             prepare.close();
