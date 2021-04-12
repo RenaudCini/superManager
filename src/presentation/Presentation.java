@@ -8,6 +8,8 @@ import entite.Organisation;
 import metier.HerosMetier;
 import metier.Outils;
 import metier.VilainMetier;
+import metier.OrganisationMetier;
+
 
 import java.util.Scanner;
 
@@ -128,6 +130,25 @@ public class Presentation {
                                         vilainMetier.updateVilain(scan, vilain, idUpdateVilain);
                                         break;
                                     case 3:
+                                        System.out.println("---- MODIFIER UNE ORGANISATION ----");
+                                        System.out.println("Saisissez le nom de l'organisation à modifier :");
+
+                                        // Récupérer le nom
+                                        String nomOrganisation = scan.nextLine();
+
+                                        // Appeler HerosMetier qui va créer une entité Heros contenant toutes les infos du héros dont on a saisi le nom
+                                        // Montrer les attributs du héros associés à des ID
+                                        OrganisationMetier organisationMetier = new OrganisationMetier();
+                                        Organisation orgUpdate = organisationMetier.getOrganisationByNom(nomOrganisation);
+                                        organisationMetier.showOrganisationForUpdate(orgUpdate);
+
+                                        // Demander quel attribut doit être modifié
+                                        System.out.println("Saisissez l'identifiant associé à l'attribut que vous voulez modifier :");
+                                        int idUpdateOrganisation = Outils.scanInteger(scan);
+
+                                        // Récupérer la nouvelle valeur
+                                        // L'enregistrer en BDD
+                                        organisationMetier.updateOrganisation(scan, orgUpdate, idUpdateOrganisation);
                                         break;
                                     case 4:
 
