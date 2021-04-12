@@ -1,6 +1,7 @@
 package presentation;
 
 import donnees.OrganisationDAO;
+import entite.Groupe;
 import entite.Heros;
 import entite.Vilain;
 import entite.Organisation;
@@ -9,6 +10,7 @@ import metier.HerosMetier;
 import metier.Outils;
 import metier.VilainMetier;
 import metier.OrganisationMetier;
+import metier.GroupeMetier;
 
 
 import java.util.Scanner;
@@ -151,14 +153,30 @@ public class Presentation {
                                         organisationMetier.updateOrganisation(scan, orgUpdate, idUpdateOrganisation);
                                         break;
                                     case 4:
+                                        System.out.println("---- MODIFIER UN GROUPE ----");
+                                        System.out.println("Saisissez le nom du groupe à modifier :");
 
+                                        // Récupérer le nom
+                                        String nomGroupe = scan.nextLine();
+
+                                        // Appeler HerosMetier qui va créer une entité Heros contenant toutes les infos du héros dont on a saisi le nom
+                                        // Montrer les attributs du héros associés à des ID
+                                        GroupeMetier groupeMetier = new GroupeMetier();
+                                        Groupe groupeUpdate = groupeMetier.getGroupeByNom(nomGroupe);
+                                        groupeMetier.showGroupeForUpdate(groupeUpdate);
+
+                                        // Demander quel attribut doit être modifié
+                                        int idUpdateGroupe = Outils.scanInteger(scan);
+
+                                        // Récupérer la nouvelle valeur
+                                        // L'enregistrer en BDD
+                                        groupeMetier.updateGroupe(scan, groupeUpdate, idUpdateGroupe);
                                         break;
                                     case 5:
-
                                         choixModification = 0;
                                         break;
                                     default:
-
+                                        break;
                                 }
                             }
                         } while (choixModification != 0);

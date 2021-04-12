@@ -5,8 +5,13 @@ import java.util.ArrayList;
 public class Groupe {
 
     private Integer groupeId;
+    private String nom;
     private ArrayList<Heros> listeHeros;
     private ArrayList<Vilain> listeVilains;
+
+    public Groupe() {
+
+    }
 
     public Groupe(int id, ArrayList<Heros> listeHeros, ArrayList<Vilain> listeVilains) {
         this.groupeId = id;
@@ -20,6 +25,15 @@ public class Groupe {
 
     public Groupe setId(Integer groupeId) {
         this.groupeId = groupeId;
+        return this;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public Groupe setNom(String nom) {
+        this.nom = nom;
         return this;
     }
 
