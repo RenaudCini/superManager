@@ -1,6 +1,5 @@
 package presentation;
 
-import donnees.OrganisationDAO;
 import entite.Heros;
 import entite.Vilain;
 import entite.Organisation;
@@ -37,8 +36,8 @@ public class Presentation {
                             if (choixCreation != 0) {
                                 switch (choixCreation) {
                                     case 1:
-                                        System.out.println("---- CREER UN SUPER HEROS ----");
-                                        System.out.println("Saisissez les informations suivantes");
+                                        System.out.println("---- CREER UN SUPER HERO ----");
+                                        System.out.println("saisisez les information suivante");
 
                                         Heros heros = new Heros();
                                         heros.creeHero(scan);
@@ -52,12 +51,23 @@ public class Presentation {
                                         vilain.creerVilain(scan);
 
                                         break;
+                                    case 3:
+                                        System.out.println("---- CREER UNE ORGANISATION ----");
+                                        System.out.println("saisissez les informations suivantes");
+
+                                        Organisation organisation = new Organisation();
+                                        organisation.creeOrganisation(scan);
+
+                                        break;
                                     case 4:
+
                                         break;
                                     case 5:
+
                                         choixCreation = 0;
                                         break;
                                     default:
+
                                 }
                             }
                         } while (choixCreation != 0);
@@ -91,7 +101,7 @@ public class Presentation {
                 System.out.println(i);
             }
             try {
-                choix = scan.nextInt();
+                choix = Outils.scanInteger(scan);
                 state = false;
             } catch (Exception e) {
                 System.out.println("Vous devez saisir un entier");

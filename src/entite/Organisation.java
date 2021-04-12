@@ -1,5 +1,7 @@
 package entite;
 
+import java.util.Date;
+
 public class Organisation {
 
     private Integer organisationId;
@@ -23,11 +25,11 @@ public class Organisation {
         this.organisationId = organisationId;
     }
 
-    public Integer getOrganisationId() {
+    public Integer getId() {
         return organisationId;
     }
 
-    public Organisation setOrganisationId(Integer organisationId) {
+    public Organisation setId(Integer organisationId) {
         this.organisationId = organisationId;
         return this;
     }
@@ -50,6 +52,14 @@ public class Organisation {
         return this;
     }
 
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public Organisation setAdresse(String adresse) {
+        this.adresse = adresse;
+        return this;
+    }
 
     public String getCommentaire() {
         return commentaire;
@@ -78,17 +88,20 @@ public class Organisation {
         return this;
     }
 
+
     @Override
     public String toString() {
         return
-                "organisationId =" + organisationId +
-                ",nom =" + nom +
+                "nom =" + nom +
                 ",nom dirigeant =" + nomDirigeant +
                 ",Siege sociale =" + siegeSocial +
-                ",commentaire =" + commentaire +
-                ",date d'ajout =" + dateAjout;
+                ",commentaire =" + commentaire;
 
+    public Organisation creeOrganisation(Scanner scan) {
+
+        Outils.AfficherTextCreationEntite(this, scan);
+        OrganisationDAO organisationDAO = new OrganisationDAO();
+        organisationDAO.cree(this);
+        return this;
     }
-
-
 }
