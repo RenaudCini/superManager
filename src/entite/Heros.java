@@ -96,7 +96,7 @@ public class Heros extends SuperPersonnage {
         setElement(element);
         getElement().setId(1);
         setOrganisation(organisation);
-        getOrganisation().setId(1);
+        getOrganisation().setOrganisationId(1);
 
 
         Outils.AfficherTextCreationEntite(this, scan);

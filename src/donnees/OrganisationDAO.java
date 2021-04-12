@@ -3,6 +3,7 @@ package donnees;
 import entite.Organisation;
 import metier.Outils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,24 +25,23 @@ public class OrganisationDAO {
         Organisation organisation;
         ResultSet result;
         try {
-            PreparedStatement prepare = this.bdd.prepareStatement("SELECT * FROM organisation");
+            PreparedStatement prepare = this.bdd.prepareStatement("SELECT id organisationId ,nom,siege_social siegeSocial, nom_dirigeant nomDirigeant,commentaire,date_ajout dateAjout FROM organisation");
 
             result = prepare.executeQuery();
       ;
             while (result.next()) {
                 organisation = new Organisation();
                 Outils.SetEntite(result, organisation);
-            /*    organisation.setId(result.getLong("id"));
-                organisation.setNom(result.getString("nom"));
-                organisation.setPrenom(result.getString("prenom"));
-                organisation.setNbAbsence(result.getInt("nbabsence"));
-                organisation.setNbRetard(result.getInt("nbretard"));
-                organisation.add(organisation);*/
+                System.out.println(organisation.toString());
             }
             prepare.close();
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
+
         return organisations;
     }
+
+
+
 }

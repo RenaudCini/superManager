@@ -1,16 +1,13 @@
 package entite;
 
-import java.util.Date;
-
 public class Organisation {
 
     private Integer organisationId;
     private String nom;
     private String nomDirigeant;
-    private  String SiegeSociale;
-    private String adresse;
+    private String siegeSocial;
     private String commentaire;
-    private Date dateAjout;
+    private String dateAjout;
 
     public Organisation (String nom,Integer organisationId) {
 
@@ -26,11 +23,11 @@ public class Organisation {
         this.organisationId = organisationId;
     }
 
-    public Integer getId() {
+    public Integer getOrganisationId() {
         return organisationId;
     }
 
-    public Organisation setId(Integer organisationId) {
+    public Organisation setOrganisationId(Integer organisationId) {
         this.organisationId = organisationId;
         return this;
     }
@@ -53,14 +50,6 @@ public class Organisation {
         return this;
     }
 
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public Organisation setAdresse(String adresse) {
-        this.adresse = adresse;
-        return this;
-    }
 
     public String getCommentaire() {
         return commentaire;
@@ -71,12 +60,21 @@ public class Organisation {
         return this;
     }
 
-    public Date getDateAjout() {
+    public String getDateAjout() {
         return dateAjout;
     }
 
-    public Organisation setDateAjout(Date dateAjout) {
+    public Organisation setDateAjout(String dateAjout) {
         this.dateAjout = dateAjout;
+        return this;
+    }
+
+    public String getSiegeSocial() {
+        return siegeSocial;
+    }
+
+    public Organisation setSiegeSocial(String siegeSocial) {
+        this.siegeSocial = siegeSocial;
         return this;
     }
 
@@ -85,19 +83,12 @@ public class Organisation {
         return
                 "organisationId =" + organisationId +
                 ",nom =" + nom +
-                ",nomDirigeant =" + nomDirigeant +
-                ",adresse =" + adresse +
+                ",nom dirigeant =" + nomDirigeant +
+                ",Siege sociale =" + siegeSocial +
                 ",commentaire =" + commentaire +
-                ",dateAjout =" + dateAjout;
+                ",date d'ajout =" + dateAjout;
 
     }
 
-    public String getSiegeSociale() {
-        return SiegeSociale;
-    }
 
-    public Organisation setSiegeSociale(String siegeSociale) {
-        SiegeSociale = siegeSociale;
-        return this;
-    }
 }

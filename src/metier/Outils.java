@@ -1,20 +1,31 @@
 package metier;
 
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 @SuppressWarnings("ALL")
 public abstract class Outils {
 
+
     public Outils() {
-        super();
+
+        HashMap<String, Integer> people = new HashMap<String, Integer>();
+        // Add keys and values (Name, Age)
+        people.put("John", 32);
+        people.put("Steve", 30);
+        people.put("Angie", 33);
+
+
     }
 
     /**
@@ -27,7 +38,7 @@ public abstract class Outils {
     public static void prepareRequest(PreparedStatement prepare, Object[] arrayPrepare) throws SQLException {
         //on boucle sur l'array ou ce toruve les variable a preparé
         for (int i = 0; i < arrayPrepare.length; i++) {
-           //si c'est integer
+            //si c'est integer
             if (arrayPrepare[i] instanceof Integer) {
                 prepare.setInt(i + 1, (Integer) arrayPrepare[i]);
                 //si c'est String
@@ -83,7 +94,7 @@ public abstract class Outils {
 
         boolean element = true;
         while (element) {
-                //boucle sur tous les attributs de la classe
+            //boucle sur tous les attributs de la classe
             for (Field field : clazz.getDeclaredFields()) {
                 // si i est inferieur au nombre d'attribut qu'il y a dans la fonction to string
                 if (i < split.length) {
@@ -110,7 +121,6 @@ public abstract class Outils {
     }
 
     /**
-     *
      * @param instance
      * @param type
      * @param field
@@ -122,6 +132,7 @@ public abstract class Outils {
     public static Integer testTypeVariable(Object instance, String type, Field field, Scanner scan, String attributDemander, Integer i) {
 
         Object value = null;
+
         String setter = "set" + capitalize(field.getName());
         Class<?> typeSetter = String.class;
 
@@ -157,19 +168,53 @@ public abstract class Outils {
     }
 
 
-
-    public static Object SetEntite(ResultSet row,Object instance){
+    public static Object SetEntite(ResultSet result, Object instance) throws NoSuchMethodException, IllegalAccessException, SQLException, InvocationTargetException {
         Class<?> clazz = instance.getClass();
         Integer i = 0;
 
         for (Field field : clazz.getDeclaredFields()) {
 
-            String type = field.getType().toString();
-            System.out.println(row);
-
+            getTypeAttribut(instance, field, result);
 
         }
-return instance;
+        return instance;
     }
+
+
+    public static void getTypeAttribut(Object instance, Field field, ResultSet result) throws NoSuchMethodException, SQLException, InvocationTargetException, IllegalAccessException {
+        Class<?> typeSetter = String.class;
+        String setter = "set" + capitalize(field.getName());
+        String nameAttribut = field.getName();
+        String type = field.getType().toString();
+        System.out.println(field.getName());
+
+        if (type.equals("class java.lang.Integer")) {
+            try {
+                typeSetter = Integer.class;
+                instance.getClass().getMethod(setter, typeSetter).invoke(instance, result.getInt(nameAttribut));
+
+            } catch (SQLException | NoSuchMethodException | IllegalAccessException | InvocationTargetException throwables) {
+                throwables.printStackTrace();
+            }
+        } else if (type.equals("class java.lang.String")) {
+            try {
+                typeSetter = String.class;
+                instance.getClass().getMethod(setter, typeSetter).invoke(instance, result.getString(nameAttribut));
+                result.getString(nameAttribut);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        /*else if (type.equals("class java.util.Date")){
+            try {
+                typeSetter = Date.class;
+                instance.getClass().getMethod(setter, typeSetter).invoke(instance, result.getDate(nameAttribut));
+                result.getDate(nameAttribut);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }*/
+    }
+
 }
 
