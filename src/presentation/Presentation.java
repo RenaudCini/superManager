@@ -7,6 +7,7 @@ import entite.Organisation;
 
 import metier.HerosMetier;
 import metier.Outils;
+import metier.VilainMetier;
 
 import java.util.Scanner;
 
@@ -99,13 +100,32 @@ public class Presentation {
 
                                         // Demander quel attribut doit être modifié
                                         System.out.println("Saisissez l'identifiant associé à l'attribut que vous voulez modifier :");
-                                        int idUpdate = Outils.scanInteger(scan);
+                                        int idUpdateHeros = Outils.scanInteger(scan);
 
                                         // Récupérer la nouvelle valeur
                                         // L'enregistrer en BDD
-                                        herosMetier.updateHeros(scan, heros, idUpdate);
+                                        herosMetier.updateHeros(scan, heros, idUpdateHeros);
                                         break;
                                     case 2:
+                                        System.out.println("---- MODIFIER UN SUPER VILAIN ----");
+                                        System.out.println("Saisissez le nom du super vilain à modifier :");
+
+                                        // Récupérer le nom
+                                        String nomVilain = scan.nextLine();
+
+                                        // Appeler HerosMetier qui va créer une entité Heros contenant toutes les infos du héros dont on a saisi le nom
+                                        // Montrer les attributs du héros associés à des ID
+                                        VilainMetier vilainMetier = new VilainMetier();
+                                        Vilain vilain = vilainMetier.getVilainByNom(nomVilain);
+                                        vilainMetier.showVilainForUpdate(vilain);
+
+                                        // Demander quel attribut doit être modifié
+                                        System.out.println("Saisissez l'identifiant associé à l'attribut que vous voulez modifier :");
+                                        int idUpdateVilain = Outils.scanInteger(scan);
+
+                                        // Récupérer la nouvelle valeur
+                                        // L'enregistrer en BDD
+                                        vilainMetier.updateVilain(scan, vilain, idUpdateVilain);
                                         break;
                                     case 3:
                                         break;
