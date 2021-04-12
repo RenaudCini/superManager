@@ -2,6 +2,8 @@ package presentation;
 
 import entite.Heros;
 import entite.Organisation;
+import metier.Outils;
+
 import java.util.Scanner;
 
 /**
@@ -92,7 +94,7 @@ public class Presentation {
                 System.out.println(i);
             }
             try {
-                choix = scan.nextInt();
+                choix = Outils.scanInteger(scan);
                 state = false;
             } catch (Exception e) {
                 System.out.println("Vous devez saisir un entier");

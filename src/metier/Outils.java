@@ -91,7 +91,7 @@ public abstract class Outils {
                     // test si la valeur n'est pas egale a id de l'entité
                     elementCourant = split[i];
 
-                    if (!field.getName().contains("Id") && !elementCourant.contains("Id")) {
+                    if (!field.getName().contains("Id") && !field.getName().contains("date") && !elementCourant.contains("Id")) {
                         attributDemander = elementCourant.replace("=null", "");
                         i = testTypeVariable(instance, type, field, scan, attributDemander, i);
                     }

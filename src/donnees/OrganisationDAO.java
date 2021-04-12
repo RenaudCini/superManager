@@ -20,10 +20,11 @@ public class OrganisationDAO {
     public void cree(Organisation organisation) {
 
         try {
-            PreparedStatement prepare = this.bdd.prepareStatement("INSERT INTO organisation (nom, siege_social, nom_dirigeant, commentaire, date_ajout) VALUES (?, ?, ?, ?, ?)");
 
+            PreparedStatement prepare = this.bdd.prepareStatement("INSERT INTO organisation (nom, siege_social, nom_dirigeant, commentaire, date_ajout) VALUES (?, ?, ?, ?, NOW())");
+            String commentaire = organisation.getCommentaire() != null ? organisation.getCommentaire() : null;
             //creation d'un array contenant  les variable a prepare
-            Object[] arrayPrepare = new Object[]{organisation.getNom(), organisation.getAdresse(), organisation.getNomDirigeant(), organisation.getCommentaire(), organisation.getDateAjout()};
+            Object[] arrayPrepare = new Object[]{organisation.getNom(), organisation.getAdresse(), organisation.getNomDirigeant(), organisation.getCommentaire()};
             Outils.prepareRequest(prepare,arrayPrepare);
             prepare.executeUpdate();
             prepare.close();

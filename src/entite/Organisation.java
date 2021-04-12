@@ -13,7 +13,7 @@ public class Organisation {
     private String nomDirigeant;
     private String adresse;
     private String commentaire;
-    private Date dateAjout;
+    private String dateAjout;
 
     public Organisation (String nom,Integer organisationId) {
 
@@ -24,6 +24,7 @@ public class Organisation {
 
         this.organisationId = organisationId;
     }
+
     public Organisation () {
 
         this.organisationId = organisationId;
@@ -74,11 +75,11 @@ public class Organisation {
         return this;
     }
 
-    public Date getDateAjout() {
+    public String getDateAjout() {
         return dateAjout;
     }
 
-    public Organisation setDateAjout(Date dateAjout) {
+    public Organisation setDateAjout(String dateAjout) {
         this.dateAjout = dateAjout;
         return this;
     }
@@ -87,11 +88,10 @@ public class Organisation {
     @Override
     public String toString() {
         return
-                ",nom =" + nom +
+                "nom =" + nom +
                 ",nomDirigeant =" + nomDirigeant +
                 ",adresse =" + adresse +
-                ",commentaire =" + commentaire +
-                ",dateAjout =" + dateAjout;
+                ",commentaire =" + commentaire;
 
     }
 
