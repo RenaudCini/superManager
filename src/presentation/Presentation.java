@@ -2,6 +2,9 @@ package presentation;
 
 import entite.Heros;
 import entite.Vilain;
+import metier.HerosMetier;
+import metier.Outils;
+
 import java.util.Scanner;
 
 /**
@@ -65,8 +68,58 @@ public class Presentation {
                     case 2:
                         // code block
                         break;
+                    // Modification :
                     case 3:
-                        // code block
+                        int choixModification;
+                        String[] listeModification = {
+                                "1 - Modifier Super Heros",
+                                "2 - Modifier Super Vilain",
+                                "3 - Modifier Organisation",
+                                "4 - Modifier Groupe",
+                                "5 - Retour au menu principal"
+                        };
+                        do {
+                            choixModification = menu(listeModification);
+                            if (choixModification != 0) {
+                                switch (choixModification) {
+                                    case 1:
+                                        System.out.println("---- MODIFIER UN SUPER HEROS ----");
+                                        System.out.println("Saisissez le nom du super héros à modifier :");
+
+                                        // Récupérer le nom
+                                        String nomHeros = scan.nextLine();
+
+                                        // Appeler HerosMetier qui va créer une entité Heros contenant toutes les infos du héros dont on a saisi le nom
+                                        // Montrer les attributs du héros associés à des ID
+                                        HerosMetier herosMetier = new HerosMetier();
+                                        herosMetier.showHerosForUpdate(nomHeros);
+
+                                        // Demander quel attribut doit être modifié
+                                        System.out.println("Saisissez l'identifiant associé à l'attribut que vous voulez modifier :");
+                                        int idUpdate = Outils.scanInteger(scan);
+                                        System.out.println(idUpdate);
+
+                                        // Récupérer la nouvelle valeur
+
+                                        // L'enregistrer en BDD
+
+                                        break;
+                                    case 2:
+                                        break;
+                                    case 3:
+                                        break;
+                                    case 4:
+
+                                        break;
+                                    case 5:
+
+                                        choixModification = 0;
+                                        break;
+                                    default:
+
+                                }
+                            }
+                        } while (choixModification != 0);
                         break;
                     case 4:
                         // code block
@@ -89,7 +142,7 @@ public class Presentation {
                 System.out.println(i);
             }
             try {
-                choix = scan.nextInt();
+                choix = Outils.scanInteger(scan);
                 state = false;
             } catch (Exception e) {
                 System.out.println("Vous devez saisir un entier");
