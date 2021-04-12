@@ -1,6 +1,9 @@
 package presentation;
 
+import donnees.OrganisationDAO;
 import entite.Heros;
+import entite.Organisation;
+
 import java.util.Scanner;
 
 /**
@@ -41,17 +44,15 @@ public class Presentation {
 
                                         break;
                                     case 2:
-
+                                        OrganisationDAO organisation = new OrganisationDAO();
+                                        organisation.findAllByOrganisation();
                                         break;
                                     case 4:
-
                                         break;
                                     case 5:
-
                                         choixCreation = 0;
                                         break;
                                     default:
-
                                 }
                             }
                         } while (choixCreation != 0);

@@ -20,10 +20,9 @@ public class SuperPersonnageDAO {
 
             //permet de pouvoire mettre a null la valeur commentaire lor de la demande saisi
             String commentaire = superPersonnage.getCommentaire() != null ? superPersonnage.getCommentaire() : null;
-
+            
             //creation d'un array contenant  les variable a prepare
             Object[] arrayPrepare = new Object[]{superPersonnage.getNom(), superPersonnage.getIdentiteSecrete(), superPersonnage.getPdv(), superPersonnage.getDegats(), superPersonnage.getElement().getId(), commentaire};
-
             Outils.prepareRequest(prepare, arrayPrepare);
             prepare.executeUpdate();
             //recupere l'id du super hero inseret

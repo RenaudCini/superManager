@@ -7,6 +7,7 @@ public class Organisation {
     private Integer organisationId;
     private String nom;
     private String nomDirigeant;
+    private  String SiegeSociale;
     private String adresse;
     private String commentaire;
     private Date dateAjout;
@@ -89,5 +90,14 @@ public class Organisation {
                 ",commentaire =" + commentaire +
                 ",dateAjout =" + dateAjout;
 
+    }
+
+    public String getSiegeSociale() {
+        return SiegeSociale;
+    }
+
+    public Organisation setSiegeSociale(String siegeSociale) {
+        SiegeSociale = siegeSociale;
+        return this;
     }
 }

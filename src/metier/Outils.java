@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -156,5 +157,19 @@ public abstract class Outils {
     }
 
 
+
+    public static Object SetEntite(ResultSet row,Object instance){
+        Class<?> clazz = instance.getClass();
+        Integer i = 0;
+
+        for (Field field : clazz.getDeclaredFields()) {
+
+            String type = field.getType().toString();
+            System.out.println(row);
+
+
+        }
+return instance;
+    }
 }
 
