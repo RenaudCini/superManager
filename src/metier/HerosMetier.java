@@ -30,7 +30,7 @@ public class HerosMetier {
         System.out.println("6 - Pouvoir : " + heros.getPouvoir());
         System.out.println("7 - Dégâts du pouvoir : " + heros.getDegatsPouvoir());
         System.out.println("8 - Elément : id. => " + heros.getElement().getId() + ", nom => " + heros.getElement().getNom());
-        System.out.println("9 - Organisation : id. => " + heros.getOrganisation().getId() + ", nom => " + heros.getOrganisation().getNom());
+        System.out.println("9 - Organisation : id. => " + heros.getOrganisation().getOrganisationId() + ", nom => " + heros.getOrganisation().getNom());
     }
 }
 

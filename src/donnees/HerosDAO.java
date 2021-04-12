@@ -58,7 +58,7 @@ public class HerosDAO extends SuperPersonnageDAO {
 
             // Organisation :
             Organisation organisation = new Organisation();
-            organisation.setId(result.getInt("organisation_id"));
+            organisation.setOrganisationId(result.getInt("organisation_id"));
             organisation.setNom(result.getString("organisation_nom"));
             heros.setOrganisation(organisation);
 
