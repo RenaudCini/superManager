@@ -1,6 +1,10 @@
 package entite;
 
+import donnees.OrganisationDAO;
+import metier.Outils;
+
 import java.util.Date;
+import java.util.Scanner;
 
 public class Organisation {
 
@@ -79,15 +83,23 @@ public class Organisation {
         return this;
     }
 
+
     @Override
     public String toString() {
         return
-                "organisationId =" + organisationId +
                 ",nom =" + nom +
                 ",nomDirigeant =" + nomDirigeant +
                 ",adresse =" + adresse +
                 ",commentaire =" + commentaire +
                 ",dateAjout =" + dateAjout;
 
+    }
+
+    public Organisation creeOrganisation(Scanner scan) {
+
+        Outils.AfficherTextCreationEntite(this, scan);
+        OrganisationDAO organisationDAO = new OrganisationDAO();
+        organisationDAO.cree(this);
+        return this;
     }
 }

@@ -1,6 +1,7 @@
 package presentation;
 
 import entite.Heros;
+import entite.Organisation;
 import java.util.Scanner;
 
 /**
@@ -33,7 +34,7 @@ public class Presentation {
                             if (choixCreation != 0) {
                                 switch (choixCreation) {
                                     case 1:
-                                        System.out.println("---- CREE UN SUPER HERO ----");
+                                        System.out.println("---- CREER UN SUPER HERO ----");
                                         System.out.println("saisisez les information suivante");
 
                                         Heros heros = new Heros();
@@ -41,6 +42,14 @@ public class Presentation {
 
                                         break;
                                     case 2:
+
+                                        break;
+                                    case 3:
+                                        System.out.println("---- CREER UNE ORGANISATION ----");
+                                        System.out.println("saisissez les informations suivantes");
+
+                                        Organisation organisation = new Organisation();
+                                        organisation.creeOrganisation(scan);
 
                                         break;
                                     case 4:
