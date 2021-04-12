@@ -1,6 +1,10 @@
 package entite;
 
+import donnees.OrganisationDAO;
+import metier.Outils;
+
 import java.util.Date;
+import java.util.Scanner;
 
 public class Organisation {
 
@@ -25,11 +29,11 @@ public class Organisation {
         this.organisationId = organisationId;
     }
 
-    public Integer getId() {
+    public Integer getOrganisationId() {
         return organisationId;
     }
 
-    public Organisation setId(Integer organisationId) {
+    public Organisation setOrganisationId(Integer organisationId) {
         this.organisationId = organisationId;
         return this;
     }
@@ -53,11 +57,11 @@ public class Organisation {
     }
 
     public String getAdresse() {
-        return adresse;
+        return siegeSocial;
     }
 
-    public Organisation setAdresse(String adresse) {
-        this.adresse = adresse;
+    public Organisation setAdresse(String siegeSocial) {
+        this.siegeSocial = siegeSocial;
         return this;
     }
 
@@ -88,7 +92,6 @@ public class Organisation {
         return this;
     }
 
-
     @Override
     public String toString() {
         return
@@ -97,6 +100,7 @@ public class Organisation {
                 ",Siege sociale =" + siegeSocial +
                 ",commentaire =" + commentaire;
 
+    }
     public Organisation creeOrganisation(Scanner scan) {
 
         Outils.AfficherTextCreationEntite(this, scan);
@@ -104,4 +108,5 @@ public class Organisation {
         organisationDAO.cree(this);
         return this;
     }
+
 }

@@ -1,8 +1,10 @@
 package presentation;
 
+import donnees.OrganisationDAO;
 import entite.Heros;
 import entite.Vilain;
 import entite.Organisation;
+import metier.Outils;
 
 import java.util.Scanner;
 
