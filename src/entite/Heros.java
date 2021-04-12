@@ -15,12 +15,13 @@ public class Heros extends SuperPersonnage {
     public Heros() {
         super();
     }
-
+/*
     /**
      * @param nom
      * @param identiteSecrete
      * @param organisation
      */
+    /*
     public Heros(String nom, String identiteSecrete, Organisation organisation) {
 
         super(nom, identiteSecrete);
@@ -35,6 +36,7 @@ public class Heros extends SuperPersonnage {
         this.organisation = organisation;
 
     }
+    */
 
     public String getPouvoir() {
         return pouvoir;

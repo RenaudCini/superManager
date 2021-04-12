@@ -4,7 +4,6 @@ import entite.Heros;
 import entite.SuperPersonnage;
 import metier.Outils;
 
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

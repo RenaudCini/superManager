@@ -1,6 +1,7 @@
 package presentation;
 
 import entite.Heros;
+import entite.Vilain;
 import java.util.Scanner;
 
 /**
@@ -27,20 +28,25 @@ public class Presentation {
                 switch (choix) {
                     case 1:
                         int choixCreation;
-                        String[] listeCreation = {"1 Création Super Heros", "2  Création Super Vilain", "3 Création organisation", "4 Création groupe", "5 Retour au menu principale"};
+                        String[] listeCreation = {"1 Création Super Heros", "2 Création Super Vilain", "3 Création organisation", "4 Création groupe", "5 Retour au menu principale"};
                         do {
                             choixCreation = menu(listeCreation);
                             if (choixCreation != 0) {
                                 switch (choixCreation) {
                                     case 1:
-                                        System.out.println("---- CREE UN SUPER HERO ----");
-                                        System.out.println("saisisez les information suivante");
+                                        System.out.println("---- CREER UN SUPER HEROS ----");
+                                        System.out.println("Saisissez les informations suivantes");
 
                                         Heros heros = new Heros();
                                         heros.creeHero(scan);
 
                                         break;
                                     case 2:
+                                        System.out.println("---- CREER UN SUPER VILAIN ----");
+                                        System.out.println("Saisissez les informations suivantes");
+
+                                        Vilain vilain = new Vilain();
+                                        vilain.creerVilain(scan);
 
                                         break;
                                     case 4:

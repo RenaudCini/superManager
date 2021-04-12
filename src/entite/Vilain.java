@@ -1,11 +1,20 @@
 package entite;
 
 
+import donnees.VilainDAO;
+import metier.Outils;
+
+import java.util.Scanner;
+
 public class Vilain extends SuperPersonnage {
 
     private String faiblesse;
     private Integer degatsFaiblesse;
     private Integer malveillance;
+
+    public Vilain() {
+        super();
+    }
 
     public Vilain(String nom, String identiteSecrete) {
 
@@ -36,6 +45,38 @@ public class Vilain extends SuperPersonnage {
 
     public Vilain setMalveillance(Integer malveillance) {
         this.malveillance = malveillance;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "faiblesse =" + faiblesse +
+                        ",degats de la faiblesse =" + degatsFaiblesse +
+                        ",malveillance =" + malveillance +
+                        ",nom =" + getNom()+
+                        ",identite Secrete =" + getIdentiteSecrete() +
+                        ",commentaire =" + getCommentaire() +
+                        ",point de vie =" + getPdv() +
+                        ",degats =" + getDegats();
+    }
+
+    /**
+     * Permet de créer un vilain.
+     *
+     * @param scan
+     * @return Vilain L'instance de l'objet Vilain créée.
+     */
+    public Vilain creerVilain(Scanner scan) {
+        System.out.println("Element");
+        String nameElement = scan.nextLine();
+        Element element = new Element(nameElement);
+        setElement(element);
+        getElement().setId(1);
+
+        Outils.AfficherTextCreationEntite(this, scan);
+        VilainDAO vilainDAO = new VilainDAO();
+        vilainDAO.creer(this);
         return this;
     }
 }

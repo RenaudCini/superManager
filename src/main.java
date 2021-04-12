@@ -1,12 +1,4 @@
-import donnees.HerosDAO;
-import entite.Element;
-import entite.Heros;
-import entite.Organisation;
-import entite.SuperPersonnage;
 import presentation.Presentation;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Scanner;
 
 public class main {
 
