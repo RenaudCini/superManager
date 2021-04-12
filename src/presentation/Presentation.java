@@ -94,17 +94,16 @@ public class Presentation {
                                         // Appeler HerosMetier qui va créer une entité Heros contenant toutes les infos du héros dont on a saisi le nom
                                         // Montrer les attributs du héros associés à des ID
                                         HerosMetier herosMetier = new HerosMetier();
-                                        herosMetier.showHerosForUpdate(nomHeros);
+                                        Heros heros = herosMetier.getHerosByNom(nomHeros);
+                                        herosMetier.showHerosForUpdate(heros);
 
                                         // Demander quel attribut doit être modifié
                                         System.out.println("Saisissez l'identifiant associé à l'attribut que vous voulez modifier :");
                                         int idUpdate = Outils.scanInteger(scan);
-                                        System.out.println(idUpdate);
 
                                         // Récupérer la nouvelle valeur
-
                                         // L'enregistrer en BDD
-
+                                        herosMetier.updateHeros(scan, heros, idUpdate);
                                         break;
                                     case 2:
                                         break;
