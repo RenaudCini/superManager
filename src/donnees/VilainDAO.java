@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class VilainDAO extends SuperPersonnageDAO {
     /**
@@ -31,12 +32,12 @@ public class VilainDAO extends SuperPersonnageDAO {
         }
     }
 
-    public Vilain findByNom(String nom) {
+    public Vilain findById(int id) {
         Vilain vilain = new Vilain();
         ResultSet result;
         try {
             Statement st = this.bdd.createStatement();
-            result = st.executeQuery("SELECT sp.id superPersonnageId, sp.nom, sp.commentaire, sp.vie_base pdv, sp.identite_secrete identiteSecrete, sp.degats_base degats, v.faiblesse, v.degats_faiblesse degatsFaiblesse, v.malveillance, e.id elementId, e.nom elementNom FROM vilain v INNER JOIN super_personnage sp ON v.super_personnage_id = sp.id INNER JOIN element e ON sp.element_id = e.id WHERE sp.nom = '" + nom + "'");
+            result = st.executeQuery("SELECT sp.id superPersonnageId, sp.nom, sp.commentaire, sp.vie_base pdv, sp.identite_secrete identiteSecrete, sp.degats_base degats, v.faiblesse, v.degats_faiblesse degatsFaiblesse, v.malveillance, e.id elementId, e.nom elementNom FROM vilain v INNER JOIN super_personnage sp ON v.super_personnage_id = sp.id INNER JOIN element e ON sp.element_id = e.id WHERE sp.id = '" + id + "'");
 
             result.next();
 
@@ -52,6 +53,29 @@ public class VilainDAO extends SuperPersonnageDAO {
             e.printStackTrace();
         }
         return vilain;
+    }
+
+    public ArrayList<Vilain> findAll() {
+        ArrayList<Vilain> listeVilains = new ArrayList<Vilain>();
+        ResultSet result;
+        try {
+            // Récupération des informations du groupe :
+            Statement st = this.bdd.createStatement();
+            result = st.executeQuery("SELECT sp.id, sp.nom FROM vilain v INNER JOIN super_personnage sp ON v.super_personnage_id = sp.id ORDER BY sp.nom");
+
+            while (result.next()) {
+                Vilain vilain = new Vilain();
+                vilain.setSuperPersonnageId(result.getInt("id"));
+                vilain.setNom(result.getString("nom"));
+                listeVilains.add(vilain);
+            }
+
+            st.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listeVilains;
     }
 
     public void update(String column, String value, int superPersonnageId) {

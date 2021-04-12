@@ -47,12 +47,35 @@ public class OrganisationDAO {
         return organisations;
     }
 
-    public Organisation findByNom(String nom) {
+    public ArrayList<Organisation> findAll() {
+        ArrayList<Organisation> listeOrganisations = new ArrayList<Organisation>();
+        ResultSet result;
+        try {
+            // Récupération des informations du groupe :
+            Statement st = this.bdd.createStatement();
+            result = st.executeQuery("SELECT id, nom FROM organisation ORDER BY nom");
+
+            while (result.next()) {
+                Organisation organisation = new Organisation();
+                organisation.setOrganisationId(result.getInt("id"));
+                organisation.setNom(result.getString("nom"));
+                listeOrganisations.add(organisation);
+            }
+
+            st.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listeOrganisations;
+    }
+
+    public Organisation findById(int id) {
         Organisation organisation = new Organisation();
         ResultSet result;
         try {
             Statement st = this.bdd.createStatement();
-            result = st.executeQuery("SELECT id as organisationId, nom, siege_social as siegeSocial, nom_dirigeant as nomDirigeant, commentaire, date_ajout as dateAjout FROM organisation WHERE nom = '" + nom + "'");
+            result = st.executeQuery("SELECT id as organisationId, nom, siege_social as siegeSocial, nom_dirigeant as nomDirigeant, commentaire, date_ajout as dateAjout FROM organisation WHERE id = '" + id + "'");
 
             result.next();
 

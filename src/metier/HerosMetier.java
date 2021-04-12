@@ -3,6 +3,7 @@ package metier;
 import donnees.HerosDAO;
 import entite.Heros;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HerosMetier {
@@ -20,13 +21,17 @@ public class HerosMetier {
         return this;
     }
 
-    public Heros getHerosByNom(String nom) {
+    public Heros getHerosById(int id) {
         HerosDAO herosDAO = new HerosDAO();
         Heros heros = new Heros();
-        heros = herosDAO.findByNom(nom);
+        heros = herosDAO.findById(id);
         return heros;
     }
 
+    /**
+     * Permet de créer un affichage récapitulant les informations d'un héros.
+     * @param heros Heros Une instance du héros dont on veut le récapitulatif.
+     */
     public void showHerosForUpdate(Heros heros) {
         System.out.println("1 - Nom : " + heros.getNom());
         System.out.println("2 - Identité secrète : " + heros.getIdentiteSecrete());
@@ -37,6 +42,18 @@ public class HerosMetier {
         System.out.println("7 - Dégâts du pouvoir : " + heros.getDegatsPouvoir());
         System.out.println("8 - Elément : id. => " + heros.getElement().getId() + ", nom => " + heros.getElement().getNom());
         System.out.println("9 - Organisation : id. => " + heros.getOrganisation().getOrganisationId() + ", nom => " + heros.getOrganisation().getNom());
+    }
+
+    /**
+     * Permet de créer un affichage d'une liste de héros, utilisée dans le cas d'un update de groupe.
+     */
+    public void showAllForUpdate() {
+        HerosDAO herosDAO = new HerosDAO();
+        ArrayList<Heros> listeHeros = herosDAO.findAll();
+        System.out.println("Liste des héros :");
+        for (int i = 0; i < listeHeros.size(); i++) {
+            System.out.println("- " + listeHeros.get(i).getSuperPersonnageId() + " : " + listeHeros.get(i).getNom());
+        }
     }
 
     public void updateHeros(Scanner scan, Heros heros, int idUpdate) {

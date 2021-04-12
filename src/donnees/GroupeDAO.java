@@ -17,7 +17,7 @@ public class GroupeDAO {
         bdd = DAO.getInstance();
     }
 
-    public Groupe findByNom(String nom) {
+    public Groupe findById(int id) {
         Groupe groupe = new Groupe();
         ArrayList<Heros> listeHeros = new ArrayList<Heros>();
         ArrayList<Vilain> listeVilains = new ArrayList<Vilain>();
@@ -25,7 +25,7 @@ public class GroupeDAO {
         try {
             // Récupération des informations du groupe :
             Statement st = this.bdd.createStatement();
-            result = st.executeQuery("SELECT g.id as groupe_id, g.nom as groupe_nom, sp.id as super_personnage_id, sp.nom as super_personnage_nom, CASE WHEN h.super_personnage_id THEN 'heros' ELSE 'vilain' END as type FROM groupe g INNER JOIN super_personnage sp ON g.id = sp.groupe_id LEFT JOIN heros h ON sp.id = h.super_personnage_id WHERE g.nom = '" + nom + "'");
+            result = st.executeQuery("SELECT g.id as groupe_id, g.nom as groupe_nom, sp.id as super_personnage_id, sp.nom as super_personnage_nom, CASE WHEN h.super_personnage_id THEN 'heros' ELSE 'vilain' END as type FROM groupe g INNER JOIN super_personnage sp ON g.id = sp.groupe_id LEFT JOIN heros h ON sp.id = h.super_personnage_id WHERE g.id = '" + id + "'");
 
             while (result.next()) {
                 if (result.getString("type").equals("heros")) {
@@ -53,6 +53,29 @@ public class GroupeDAO {
             e.printStackTrace();
         }
         return groupe;
+    }
+
+    public ArrayList<Groupe> findAll() {
+        ArrayList<Groupe> listeGroupes = new ArrayList<Groupe>();
+        ResultSet result;
+        try {
+            // Récupération des informations du groupe :
+            Statement st = this.bdd.createStatement();
+            result = st.executeQuery("SELECT id, nom FROM groupe ORDER BY nom");
+
+            while (result.next()) {
+                Groupe groupe = new Groupe();
+                groupe.setId(result.getInt("id"));
+                groupe.setNom(result.getString("nom"));
+                listeGroupes.add(groupe);
+            }
+
+            st.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listeGroupes;
     }
 
     public void updatePersonnage(int groupeId, int superPersonnageId) {

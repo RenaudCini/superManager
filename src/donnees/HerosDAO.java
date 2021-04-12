@@ -1,15 +1,13 @@
 package donnees;
 
-import entite.Element;
-import entite.Heros;
-import entite.Organisation;
-import entite.SuperPersonnage;
+import entite.*;
 import metier.Outils;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class HerosDAO extends SuperPersonnageDAO {
 
@@ -33,12 +31,12 @@ public class HerosDAO extends SuperPersonnageDAO {
         }
     }
 
-    public Heros findByNom(String nom) {
+    public Heros findById(int id) {
         Heros heros = new Heros();
         ResultSet result;
         try {
             Statement st = this.bdd.createStatement();
-            result = st.executeQuery("SELECT sp.id as super_personnage_id, sp.nom, sp.identite_secrete, sp.commentaire, sp.vie_base, sp.degats_base, h.degats_pouvoir, e.id as element_id, e.nom as element_nom, o.id as organisation_id, o.nom as organisation_nom FROM heros h INNER JOIN super_personnage sp ON h.super_personnage_id = sp.id INNER JOIN organisation o ON h.organisation_id = o.id INNER JOIN element e ON sp.element_id = e.id WHERE sp.nom = '" + nom + "'");
+            result = st.executeQuery("SELECT sp.id as super_personnage_id, sp.nom, sp.identite_secrete, sp.commentaire, sp.vie_base, sp.degats_base, h.degats_pouvoir, e.id as element_id, e.nom as element_nom, o.id as organisation_id, o.nom as organisation_nom FROM heros h INNER JOIN super_personnage sp ON h.super_personnage_id = sp.id INNER JOIN organisation o ON h.organisation_id = o.id INNER JOIN element e ON sp.element_id = e.id WHERE sp.id = '" + id + "'");
 
             result.next();
 
@@ -67,6 +65,29 @@ public class HerosDAO extends SuperPersonnageDAO {
             e.printStackTrace();
         }
         return heros;
+    }
+
+    public ArrayList<Heros> findAll() {
+        ArrayList<Heros> listeHeros = new ArrayList<Heros>();
+        ResultSet result;
+        try {
+            // Récupération des informations du groupe :
+            Statement st = this.bdd.createStatement();
+            result = st.executeQuery("SELECT sp.id, sp.nom FROM heros h INNER JOIN super_personnage sp ON h.super_personnage_id = sp.id ORDER BY sp.nom");
+
+            while (result.next()) {
+                    Heros heros = new Heros();
+                    heros.setSuperPersonnageId(result.getInt("id"));
+                    heros.setNom(result.getString("nom"));
+                    listeHeros.add(heros);
+            }
+
+            st.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listeHeros;
     }
 
     public void update(String column, String value, int superPersonnageId) {

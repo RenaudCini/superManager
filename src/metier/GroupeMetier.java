@@ -1,6 +1,7 @@
 package metier;
 
 import donnees.GroupeDAO;
+import donnees.HerosDAO;
 import entite.Groupe;
 import entite.Heros;
 import entite.Vilain;
@@ -13,10 +14,10 @@ public class GroupeMetier {
 
     public GroupeMetier() {}
 
-    public Groupe getGroupeByNom(String nom) {
+    public Groupe getGroupeById(int id) {
         GroupeDAO groupeDAO = new GroupeDAO();
         Groupe groupe = new Groupe();
-        groupe = groupeDAO.findByNom(nom);
+        groupe = groupeDAO.findById(id);
         return groupe;
     }
 
@@ -44,44 +45,55 @@ public class GroupeMetier {
 
     }
 
+    /**
+     * Permet de créer un affichage d'une liste de héros, utilisée dans le cas d'un update de groupe.
+     */
+    public void showAllForUpdate() {
+        GroupeDAO groupeDAO = new GroupeDAO();
+        ArrayList<Groupe> listeGroupes = groupeDAO.findAll();
+        System.out.println("Liste des groupes :");
+        for (int i = 0; i < listeGroupes.size(); i++) {
+            System.out.println("- " + listeGroupes.get(i).getId() + " : " + listeGroupes.get(i).getNom());
+        }
+    }
+
     public void updateGroupe(Scanner scan, Groupe groupe, int idUpdate) {
         GroupeDAO groupeDAO = new GroupeDAO();
         HerosMetier herosMetier = new HerosMetier();
         VilainMetier vilainMetier = new VilainMetier();
-        String value;
+
         switch (idUpdate) {
             case 1:
+                String value1;
                 System.out.println("Saisissez un nouveau nom pour le groupe " + groupe.getNom() + " :");
-                value = scan.nextLine();
-                groupeDAO.updateGroupe(value, groupe.getId());
+                value1 = scan.nextLine();
+                groupeDAO.updateGroupe(value1, groupe.getId());
                 break;
             case 2:
-                System.out.println("Saisissez le nom d'un héros à ajouter au groupe " + groupe.getNom() + " :");
-                value = scan.nextLine();
-                // Récupération du Héros :
-                Heros heros2 = herosMetier.getHerosByNom(value);
-                groupeDAO.updatePersonnage(groupe.getId(), heros2.getSuperPersonnageId());
+                int value2;
+                herosMetier.showAllForUpdate();
+                System.out.println("Saisissez l'id d'un héros à ajouter au groupe " + groupe.getNom() + " :");
+                value2 = Outils.scanInteger(scan);
+                groupeDAO.updatePersonnage(groupe.getId(), value2);
                 break;
             case 3:
-                System.out.println("Saisissez le nom d'un héros à supprimer du groupe " + groupe.getNom() + " :");
-                value = scan.nextLine();
-                // Récupération du Héros :
-                Heros heros3 = herosMetier.getHerosByNom(value);
-                groupeDAO.updatePersonnage(0, heros3.getSuperPersonnageId());
+                int value3;
+                System.out.println("Saisissez l'id d'un héros à supprimer du groupe " + groupe.getNom() + " :");
+                value3 = Outils.scanInteger(scan);
+                groupeDAO.updatePersonnage(0, value3);
                 break;
             case 4:
-                System.out.println("Saisissez le nom d'un vilain à ajouter au groupe " + groupe.getNom() + " :");
-                value = scan.nextLine();
-                // Récupération du Héros :
-                Vilain vilain4 = vilainMetier.getVilainByNom(value);
-                groupeDAO.updatePersonnage(groupe.getId(), vilain4.getSuperPersonnageId());
+                int value4;
+                vilainMetier.showAllForUpdate();
+                System.out.println("Saisissez l'id d'un vilain à ajouter au groupe " + groupe.getNom() + " :");
+                value4 = Outils.scanInteger(scan);
+                groupeDAO.updatePersonnage(groupe.getId(), value4);
                 break;
             case 5:
-                System.out.println("Saisissez le nom d'un vilain à supprimer du groupe " + groupe.getNom() + " :");
-                value = scan.nextLine();
-                // Récupération du Héros :
-                Vilain vilain5 = vilainMetier.getVilainByNom(value);
-                groupeDAO.updatePersonnage(0, vilain5.getSuperPersonnageId());
+                int value5;
+                System.out.println("Saisissez l'id d'un vilain à supprimer du groupe " + groupe.getNom() + " :");
+                value5 = Outils.scanInteger(scan);
+                groupeDAO.updatePersonnage(0, value5);
                 break;
             default:
                 break;

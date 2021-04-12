@@ -1,8 +1,11 @@
 package metier;
 
 import donnees.OrganisationDAO;
+import donnees.VilainDAO;
 import entite.Organisation;
+import entite.Vilain;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OrganisationMetier {
@@ -10,10 +13,10 @@ public class OrganisationMetier {
 
     public OrganisationMetier() {}
 
-    public Organisation getOrganisationByNom(String nom) {
+    public Organisation getOrganisationById(int id) {
         OrganisationDAO organisationDAO = new OrganisationDAO();
         Organisation organisation = new Organisation();
-        organisation = organisationDAO.findByNom(nom);
+        organisation = organisationDAO.findById(id);
         return organisation;
     }
 
@@ -22,6 +25,18 @@ public class OrganisationMetier {
         System.out.println("2 - Siège social : " + organisation.getSiegeSocial());
         System.out.println("3 - Nom du dirigeant : " + organisation.getNomDirigeant());
         System.out.println("4 - Commentaire : " + organisation.getCommentaire());
+    }
+
+    /**
+     * Permet de créer un affichage d'une liste de héros, utilisée dans le cas d'un update de groupe.
+     */
+    public void showAllForUpdate() {
+        OrganisationDAO organisationDAO = new OrganisationDAO();
+        ArrayList<Organisation> listeOrganisations = organisationDAO.findAll();
+        System.out.println("Liste des organisations :");
+        for (int i = 0; i < listeOrganisations.size(); i++) {
+            System.out.println("- " + listeOrganisations.get(i).getOrganisationId() + " : " + listeOrganisations.get(i).getNom());
+        }
     }
 
     public void updateOrganisation(Scanner scan, Organisation organisation, int idUpdate) {

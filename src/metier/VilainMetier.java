@@ -1,8 +1,11 @@
 package metier;
 
+import donnees.HerosDAO;
 import donnees.VilainDAO;
+import entite.Heros;
 import entite.Vilain;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class VilainMetier {
@@ -16,10 +19,10 @@ public class VilainMetier {
         return this;
     }
 
-    public Vilain getVilainByNom(String nom) {
+    public Vilain getVilainById(int id) {
         VilainDAO vilainDAO = new VilainDAO();
         Vilain vilain = new Vilain();
-        vilain = vilainDAO.findByNom(nom);
+        vilain = vilainDAO.findById(id);
         return vilain;
     }
 
@@ -32,6 +35,18 @@ public class VilainMetier {
         System.out.println("6 - Dégâts reçus (faiblesse) : " + vilain.getDegatsFaiblesse());
         System.out.println("7 - Degré de malveillance : " + vilain.getMalveillance());
         System.out.println("8 - Elément : id. => " + vilain.getElement().getId() + ", nom => " + vilain.getElement().getNom());
+    }
+
+    /**
+     * Permet de créer un affichage d'une liste de héros, utilisée dans le cas d'un update de groupe.
+     */
+    public void showAllForUpdate() {
+        VilainDAO vilainDAO = new VilainDAO();
+        ArrayList<Vilain> listeVilains = vilainDAO.findAll();
+        System.out.println("Liste des vilains :");
+        for (int i = 0; i < listeVilains.size(); i++) {
+            System.out.println("- " + listeVilains.get(i).getSuperPersonnageId() + " : " + listeVilains.get(i).getNom());
+        }
     }
 
     public void updateVilain(Scanner scan, Vilain vilain, int idUpdate) {
