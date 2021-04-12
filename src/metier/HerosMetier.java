@@ -66,7 +66,7 @@ public class HerosMetier {
             case 5:
                 System.out.println("Saisissez de nouveaux dégâts pour " + heros.getNom() + " :");
                 value = scan.nextLine();
-                herosDAO.update("commentaire", value, heros.getSuperPersonnageId());
+                herosDAO.update("degats_base", value, heros.getSuperPersonnageId());
                 break;
             case 6:
                 System.out.println("Saisissez un nouveau pouvoir pour " + heros.getNom() + " :");
