@@ -79,10 +79,10 @@ public class Presentation {
                     case 3:
                         int choixModification;
                         String[] listeModification = {
-                                "1 - Modifier Super Heros",
-                                "2 - Modifier Super Vilain",
-                                "3 - Modifier Organisation",
-                                "4 - Modifier Groupe",
+                                "1 - Modifier un Super Heros",
+                                "2 - Modifier un Super Vilain",
+                                "3 - Modifier une Organisation",
+                                "4 - Modifier un Groupe",
                                 "5 - Retour au menu principal"
                         };
                         do {
