@@ -56,6 +56,15 @@ public class HerosMetier {
         }
     }
 
+    public void showAllFree() {
+        HerosDAO herosDAO = new HerosDAO();
+        ArrayList<Heros> listeHeros = herosDAO.findAllFree();
+        System.out.println("Liste des héros disponibles :");
+        for (int i = 0; i < listeHeros.size(); i++) {
+            System.out.println("- " + listeHeros.get(i).getSuperPersonnageId() + " : " + listeHeros.get(i).getNom());
+        }
+    }
+
     public void updateHeros(Scanner scan, Heros heros, int idUpdate) {
         HerosDAO herosDAO = new HerosDAO();
         String value;

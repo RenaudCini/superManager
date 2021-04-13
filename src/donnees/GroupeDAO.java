@@ -109,4 +109,32 @@ public class GroupeDAO {
             e.printStackTrace();
         }
     }
+
+    public void creerGroupe(String nom, String listeSuper) {
+        try {
+            String createSql = "INSERT INTO groupe (nom) VALUES (?)";
+            PreparedStatement prepare = this.bdd.prepareStatement(createSql, Statement.RETURN_GENERATED_KEYS);
+            Object[] arrayPrepare = new Object[]{nom};
+            Outils.prepareRequest(prepare,arrayPrepare);
+            prepare.executeUpdate();
+
+            ResultSet rs = prepare.getGeneratedKeys();
+            int lastInsertedId =0;
+            if (rs.next()) {
+                lastInsertedId = rs.getInt(1);
+            }
+
+            prepare.close();
+
+            String updateSuperPersonnages = "UPDATE super_personnage SET groupe_id = (?) WHERE id IN (" + listeSuper + ")";
+            PreparedStatement prepare2 = this.bdd.prepareStatement(updateSuperPersonnages);
+            Object[] arrayPrepare2 = new Object[]{lastInsertedId};
+            Outils.prepareRequest(prepare2,arrayPrepare2);
+            prepare2.execute();
+            prepare2.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

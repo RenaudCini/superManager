@@ -90,6 +90,29 @@ public class HerosDAO extends SuperPersonnageDAO {
         return listeHeros;
     }
 
+    public ArrayList<Heros> findAllFree() {
+        ArrayList<Heros> listeHeros = new ArrayList<Heros>();
+        ResultSet result;
+        try {
+            // Récupération des informations du groupe :
+            Statement st = this.bdd.createStatement();
+            result = st.executeQuery("SELECT sp.id, sp.nom FROM heros h INNER JOIN super_personnage sp ON h.super_personnage_id = sp.id WHERE sp.groupe_id IS NULL ORDER BY sp.nom");
+
+            while (result.next()) {
+                Heros heros = new Heros();
+                heros.setSuperPersonnageId(result.getInt("id"));
+                heros.setNom(result.getString("nom"));
+                listeHeros.add(heros);
+            }
+
+            st.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listeHeros;
+    }
+
     public void update(String column, String value, int superPersonnageId) {
         try {
             String updateSql;

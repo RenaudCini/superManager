@@ -70,10 +70,14 @@ public class Presentation {
 
                                         break;
                                     case 4:
+                                        System.out.println("---- CREER UN GROUPE ----");
+                                        System.out.println("Saisissez les informations suivantes :");
+
+                                        GroupeMetier groupeMetier = new GroupeMetier();
+                                        groupeMetier.creer(scan);
 
                                         break;
                                     case 5:
-
                                         choixCreation = 0;
                                         break;
                                     default:

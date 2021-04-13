@@ -2,6 +2,7 @@ package metier;
 
 import donnees.GroupeDAO;
 import donnees.HerosDAO;
+import donnees.OrganisationDAO;
 import entite.Groupe;
 import entite.Heros;
 import entite.Vilain;
@@ -98,6 +99,35 @@ public class GroupeMetier {
             default:
                 break;
         }
+    }
+
+    public GroupeMetier creer(Scanner scan) {
+        HerosMetier herosMetier = new HerosMetier();
+        VilainMetier vilainMetier = new VilainMetier();
+
+        System.out.println("Saisissez un nom pour le groupe :");
+        String nom = scan.nextLine();
+
+        herosMetier.showAllFree();
+        System.out.println("Choisissez des héros à ajouter au groupe en écrivant leurs id. séparés par une virgule (ex. : 1,4,9) :");
+        String listeHeros = scan.nextLine();
+
+        vilainMetier.showAllFree();
+        System.out.println("Choisissez des vilains à ajouter au groupe en écrivant leurs id. séparés par une virgule (ex. : 1,4,9) :");
+        String listeVilains = scan.nextLine();
+
+        String listeSuper = "";
+        if ((listeHeros == null || listeHeros.isEmpty()) && (listeVilains != null && !listeVilains.isEmpty())) {
+            listeSuper = listeVilains;
+        } else if ((listeVilains == null || listeVilains.isEmpty()) && (listeHeros != null && !listeHeros.isEmpty())) {
+            listeSuper = listeHeros;
+        } else {
+            listeSuper = listeHeros + "," + listeVilains;
+        }
+
+        GroupeDAO groupeDAO = new GroupeDAO();
+        groupeDAO.creerGroupe(nom, listeSuper);
+        return this;
     }
 }
 

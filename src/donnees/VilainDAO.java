@@ -78,6 +78,29 @@ public class VilainDAO extends SuperPersonnageDAO {
         return listeVilains;
     }
 
+    public ArrayList<Vilain> findAllFree() {
+        ArrayList<Vilain> listeVilains = new ArrayList<Vilain>();
+        ResultSet result;
+        try {
+            // Récupération des informations du groupe :
+            Statement st = this.bdd.createStatement();
+            result = st.executeQuery("SELECT sp.id, sp.nom FROM vilain v INNER JOIN super_personnage sp ON v.super_personnage_id = sp.id WHERE sp.groupe_id IS NULL ORDER BY sp.nom");
+
+            while (result.next()) {
+                Vilain vilain = new Vilain();
+                vilain.setSuperPersonnageId(result.getInt("id"));
+                vilain.setNom(result.getString("nom"));
+                listeVilains.add(vilain);
+            }
+
+            st.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listeVilains;
+    }
+
     public void update(String column, String value, int superPersonnageId) {
         try {
             String updateSql;

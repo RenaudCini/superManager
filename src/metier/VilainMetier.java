@@ -49,6 +49,18 @@ public class VilainMetier {
         }
     }
 
+    /**
+     * Permet de créer un affichage d'une liste de héros, utilisée dans le cas d'un update de groupe.
+     */
+    public void showAllFree() {
+        VilainDAO vilainDAO = new VilainDAO();
+        ArrayList<Vilain> listeVilains = vilainDAO.findAllFree();
+        System.out.println("Liste des vilains disponibles :");
+        for (int i = 0; i < listeVilains.size(); i++) {
+            System.out.println("- " + listeVilains.get(i).getSuperPersonnageId() + " : " + listeVilains.get(i).getNom());
+        }
+    }
+
     public void updateVilain(Scanner scan, Vilain vilain, int idUpdate) {
         VilainDAO vilainDAO = new VilainDAO();
         String value;
