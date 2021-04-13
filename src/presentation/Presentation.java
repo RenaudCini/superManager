@@ -307,23 +307,21 @@ public class Presentation {
                         } while (choixModification != 0);
                         break;
                     case 4:
-                        System.out.println("-----Combat--------------(--");
-                        System.out.println("choississez un groupe");
+                        System.out.println("---- COMBAT ----");
+
+                        // Affichage des groupes :
                         GroupeMetier groupeMetier = new GroupeMetier();
-
                         groupeMetier.showAllForUpdate();
+
+                        // Récupération du groupe demandé par l'utilisateur :
+                        System.out.println("Saisissez l'id. d'un groupe pour lancer le combat :");
                         int value =  Outils.scanInteger(scan);
-                       Groupe groupe = groupeMetier.getGroupeById(value);
+                        Groupe groupe = groupeMetier.getGroupeById(value);
 
-                        ArrayList<Heros> listeHersos = groupe.getListeHeros();
-
-                        ArrayList<Vilain>  listevillain = groupe.getListeVilains();
-
-
-                        for (int i = 0; i < listeHersos.size(); i++) {
-                            System.out.println(listeHersos.get(i).getPouvoir());
-                            scan.nextLine();
-                        }
+                        // Création des listes de héros et vilains :
+                        ArrayList<Heros> listeHeros = groupe.getListeHeros();
+                        ArrayList<Vilain> listeVilains = groupe.getListeVilains();
+                        groupeMetier.combat(listeHeros, listeVilains);
 
                         break;
                     default:
