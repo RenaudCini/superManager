@@ -33,6 +33,7 @@ public class HerosMetier {
      * @param heros Heros Une instance du héros dont on veut le récapitulatif.
      */
     public void showHerosForUpdate(Heros heros) {
+        System.out.println("Fiche du héros : " + heros.getNom());
         System.out.println("1 - Nom : " + heros.getNom());
         System.out.println("2 - Identité secrète : " + heros.getIdentiteSecrete());
         System.out.println("3 - Commentaire : " + heros.getCommentaire());

@@ -36,14 +36,26 @@ public class Presentation {
         System.out.println("|    SUPER MANAGER    |");
         System.out.println("-----------------------");
 
-        String[] liste = {"1 - Créer", "2 - Visionner", "3 - Modifier", "4 - Combat"};
+        String[] liste = {
+                "---- MENU PRINCIPAL ----",
+                "1 - Créer",
+                "2 - Visionner",
+                "3 - Modifier",
+                "4 - Combat"
+        };
         do {
             choix = menu(liste);
             if (choix != 0) {
                 switch (choix) {
                     case 1:
                         int choixCreation;
-                        String[] listeCreation = {"1 - Créer un Super Héros", "2 - Créer un Super Vilain", "3 - Créer une Organisation", "4 - Créer un Groupe", "5 - Retour au menu principal"};
+                        String[] listeCreation = {
+                                "---- CREER ----",
+                                "1 - Créer un Super Héros",
+                                "2 - Créer un Super Vilain",
+                                "3 - Créer une Organisation",
+                                "4 - Créer un Groupe",
+                                "5 - Retour au menu principal"};
                         do {
                             choixCreation = menu(listeCreation);
                             if (choixCreation != 0) {
@@ -90,14 +102,96 @@ public class Presentation {
                         } while (choixCreation != 0);
                         break;
                     case 2:
-                        OrganisationDAO organisation = new OrganisationDAO();
-                        organisation.findAllByOrganisation();
-                        // code block
+                        //OrganisationDAO organisation = new OrganisationDAO();
+                        //organisation.findAllByOrganisation();
+                        int choixVisionnage;
+                        String[] listeVisionnage = {
+                                "---- VISIONNER ----",
+                                "1 - Voir tous les Super Héros",
+                                "2 - Voir la fiche d'un Super Héros",
+                                "3 - Voir tous les Super Vilains",
+                                "4 - Voir la fiche d'un Super Vilain",
+                                "5 - Voir toutes les organisations",
+                                "6 - Voir le détail d'une organisation",
+                                "7 - Voir tous les groupes",
+                                "8 - Voir le détail d'un groupe",
+                                "9 - Revenir au menu principal"
+                        };
+                        do {
+                            HerosMetier herosMetier = new HerosMetier();
+                            VilainMetier vilainMetier = new VilainMetier();
+                            OrganisationMetier organisationMetier = new OrganisationMetier();
+                            GroupeMetier groupeMetier = new GroupeMetier();
+
+                            choixVisionnage = menu(listeVisionnage);
+                            if (choixVisionnage != 0) {
+                                switch (choixVisionnage) {
+                                    case 1:
+                                        System.out.println("---- VOIR TOUS LES SUPER HEROS ----");
+                                        // Affichage de tous les héros :
+                                        herosMetier.showAllForUpdate();
+                                        break;
+                                    case 2:
+                                        System.out.println("---- VOIR LA FICHE D'UN SUPER HEROS ----");
+                                        System.out.println("Saisissez l'id. d'un super héros dont vous voulez voir la fiche :");
+                                        int idHeros = Outils.scanInteger(scan);
+                                        // Affichage de tous les héros :
+                                        Heros heros = herosMetier.getHerosById(idHeros);
+                                        herosMetier.showHerosForUpdate(heros);
+                                        break;
+                                    case 3:
+                                        System.out.println("---- VOIR TOUS LES SUPER VILAINS ----");
+                                        // Affichage de tous les héros :
+                                        vilainMetier.showAllForUpdate();
+                                        break;
+                                    case 4:
+                                        System.out.println("---- VOIR LA FICHE D'UN SUPER VILAIN ----");
+                                        System.out.println("Saisissez l'id. d'un super vilain dont vous voulez voir la fiche :");
+                                        int idVilain = Outils.scanInteger(scan);
+                                        // Affichage de tous les héros :
+                                        Vilain vilain = vilainMetier.getVilainById(idVilain);
+                                        vilainMetier.showVilainForUpdate(vilain);
+                                        break;
+                                    case 5:
+                                        System.out.println("---- VOIR TOUTES LES ORGANISATIONS ----");
+                                        // Affichage de tous les héros :
+                                        organisationMetier.showAllForUpdate();
+                                        break;
+                                    case 6:
+                                        System.out.println("---- VOIR UNE ORGANISATION ----");
+                                        System.out.println("Saisissez l'id. d'une organisation dont vous voulez voir le détail :");
+                                        int idOrganisation = Outils.scanInteger(scan);
+                                        // Affichage de tous les héros :
+                                        Organisation organisation = organisationMetier.getOrganisationById(idOrganisation);
+                                        organisationMetier.showOrganisationForUpdate(organisation);
+                                        break;
+                                    case 7:
+                                        System.out.println("---- VOIR TOUS LES GROUPES ----");
+                                        // Affichage de tous les héros :
+                                        groupeMetier.showAllForUpdate();
+                                        break;
+                                    case 8:
+                                        System.out.println("---- VOIR UN GROUPE ----");
+                                        System.out.println("Saisissez l'id. d'un groupe dont vous voulez voir le détail :");
+                                        int idGroupe = Outils.scanInteger(scan);
+                                        // Affichage de tous les héros :
+                                        Groupe groupe = groupeMetier.getGroupeById(idGroupe);
+                                        groupeMetier.showGroupeForUpdate(groupe);
+                                        break;
+                                    case 9:
+                                        choixVisionnage = 0;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        } while (choixVisionnage != 0);
                         break;
                     // Modification :
                     case 3:
                         int choixModification;
                         String[] listeModification = {
+                                "---- MODIFIER ----",
                                 "1 - Modifier un Super Héros",
                                 "2 - Modifier un Super Vilain",
                                 "3 - Modifier une Organisation",
@@ -186,9 +280,16 @@ public class Presentation {
                                         int idGroupe = Outils.scanInteger(scan);
 
                                         // Récupération des infos du groupe à modifier et affichage :
-                                        // + Demander quel attribut doit être modifié dans la fonction showGroupeForUpdate :
                                         Groupe groupeUpdate = groupeMetier.getGroupeById(idGroupe);
                                         groupeMetier.showGroupeForUpdate(groupeUpdate);
+
+                                        // Demander quel attribut doit être modifié dans la fonction showGroupeForUpdate :
+                                        System.out.println("");
+                                        System.out.println("1 - Modifier le nom du groupe");
+                                        System.out.println("2 - Ajouter un héros à la liste");
+                                        System.out.println("3 - Supprimer un héros de la liste");
+                                        System.out.println("4 - Ajouter un vilain à la liste");
+                                        System.out.println("5 - Supprimer un vilain de la liste");
                                         int idUpdateGroupe = Outils.scanInteger(scan);
 
                                         // Update du groupe :

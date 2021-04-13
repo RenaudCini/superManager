@@ -36,14 +36,6 @@ public class GroupeMetier {
         for (int i = 0; i < listeVilains.size(); i++) {
             System.out.println("- Id. : " + listeVilains.get(i).getSuperPersonnageId() + ", nom : " + listeVilains.get(i).getNom());
         }
-
-        System.out.println("");
-        System.out.println("1 - Modifier le nom du groupe");
-        System.out.println("2 - Ajouter un héros à la liste");
-        System.out.println("3 - Supprimer un héros de la liste");
-        System.out.println("4 - Ajouter un vilain à la liste");
-        System.out.println("5 - Supprimer un vilain de la liste");
-
     }
 
     /**

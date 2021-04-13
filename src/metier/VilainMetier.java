@@ -27,6 +27,7 @@ public class VilainMetier {
     }
 
     public void showVilainForUpdate(Vilain vilain) {
+        System.out.println("Fiche du vilain : " + vilain.getNom());
         System.out.println("1 - Nom : " + vilain.getNom());
         System.out.println("2 - Commentaire : " + vilain.getCommentaire());
         System.out.println("3 - Points de vie (base) : " + vilain.getPdv());
