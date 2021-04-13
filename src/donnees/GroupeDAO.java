@@ -1,8 +1,6 @@
 package donnees;
 
-import entite.Groupe;
-import entite.Heros;
-import entite.Vilain;
+import entite.*;
 import metier.Outils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,32 +20,70 @@ public class GroupeDAO {
         ArrayList<Heros> listeHeros = new ArrayList<Heros>();
         ArrayList<Vilain> listeVilains = new ArrayList<Vilain>();
         ResultSet result;
+
         try {
-            // Récupération des informations du groupe :
-            Statement st = this.bdd.createStatement();
-            result = st.executeQuery("SELECT g.id as groupe_id, g.nom as groupe_nom, sp.id as super_personnage_id, sp.nom as super_personnage_nom, CASE WHEN h.super_personnage_id THEN 'heros' ELSE 'vilain' END as type FROM groupe g INNER JOIN super_personnage sp ON g.id = sp.groupe_id LEFT JOIN heros h ON sp.id = h.super_personnage_id WHERE g.id = '" + id + "'");
+            // Récupération du groupe :
+            Statement stGroupe = this.bdd.createStatement();
+            result = stGroupe.executeQuery("SELECT id, nom FROM groupe WHERE id = '" + id + "'");
+
+            result.next();
+            groupe.setId(result.getInt("id"));
+            groupe.setNom(result.getString("nom"));
+
+            stGroupe.close();
+
+            // Récupération des héros :
+            Statement stHeros = this.bdd.createStatement();
+            result = stHeros.executeQuery("SELECT g.id as groupe_id, g.nom as groupe_nom, sp.id as super_personnage_id, sp.nom as super_personnage_nom, sp.vie_base, sp.degats_base, sp.element_id, e.nom as element_nom, h.pouvoir, h.degats_pouvoir, h.organisation_id FROM groupe g INNER JOIN super_personnage sp ON g.id = sp.groupe_id INNER JOIN heros h ON sp.id = h.super_personnage_id INNER JOIN element e ON sp.element_id = e.id WHERE g.id = '" + id + "'");
 
             while (result.next()) {
-                if (result.getString("type").equals("heros")) {
-                    Heros heros = new Heros();
-                    heros.setSuperPersonnageId(result.getInt("super_personnage_id"));
-                    heros.setNom(result.getString("super_personnage_nom"));
-                    listeHeros.add(heros);
-                } else {
-                    Vilain vilain = new Vilain();
-                    vilain.setSuperPersonnageId(result.getInt("super_personnage_id"));
-                    vilain.setNom(result.getString("super_personnage_nom"));
-                    listeVilains.add(vilain);
-                }
+                Heros heros = new Heros();
+                heros.setSuperPersonnageId(result.getInt("super_personnage_id"));
+                heros.setNom(result.getString("super_personnage_nom"));
+                heros.setPdv(result.getInt("vie_base"));
+                heros.setDegats(result.getInt("degats_base"));
 
-                groupe.setId(result.getInt("groupe_id"));
-                groupe.setNom(result.getString("groupe_nom"));
+                Element element = new Element();
+                element.setId(result.getInt("element_id"));
+                element.setNom(result.getString("element_nom"));
+                heros.setElement(element);
+
+                heros.setPouvoir(result.getString("pouvoir"));
+                heros.setDegatsPouvoir(result.getInt("degats_pouvoir"));
+
+                listeHeros.add(heros);
             }
 
+            stHeros.close();
+
+            // Récupération des vilains :
+            Statement stVilains = this.bdd.createStatement();
+            result = stVilains.executeQuery("SELECT g.id as groupe_id, g.nom as groupe_nom, sp.id as super_personnage_id, sp.nom as super_personnage_nom, sp.vie_base, sp.degats_base, sp.element_id, e.nom as element_nom, v.faiblesse, v.degats_faiblesse, v.malveillance FROM groupe g INNER JOIN super_personnage sp ON g.id = sp.groupe_id INNER JOIN vilain v ON sp.id = v.super_personnage_id INNER JOIN element e ON sp.element_id = e.id WHERE g.id = '" + id + "'");
+
+            while (result.next()) {
+                Vilain vilain = new Vilain();
+                vilain.setSuperPersonnageId(result.getInt("super_personnage_id"));
+                vilain.setNom(result.getString("super_personnage_nom"));
+                vilain.setPdv(result.getInt("vie_base"));
+                vilain.setDegats(result.getInt("degats_base"));
+
+                Element element = new Element();
+                element.setId(result.getInt("element_id"));
+                element.setNom(result.getString("element_nom"));
+                vilain.setElement(element);
+
+                vilain.setFaiblesse(result.getString("faiblesse"));
+                vilain.setDegatsFaiblesse(result.getInt("degats_faiblesse"));
+    vilain.setMalveillance(result.getInt("malveillance"));
+
+                listeVilains.add(vilain);
+            }
+
+            stVilains.close();
+
+            // Attribution des héros et vilains au groupe :
             groupe.setListeHeros(listeHeros);
             groupe.setListeVilains(listeVilains);
-
-            st.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
