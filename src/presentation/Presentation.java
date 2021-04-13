@@ -1,6 +1,5 @@
 package presentation;
 
-import donnees.OrganisationDAO;
 import entite.Groupe;
 import entite.Heros;
 import entite.Vilain;
@@ -8,27 +7,20 @@ import entite.Organisation;
 import metier.Outils;
 
 import metier.HerosMetier;
-import metier.Outils;
 import metier.VilainMetier;
 import metier.OrganisationMetier;
 import metier.GroupeMetier;
-
-
 import java.util.Scanner;
 
-/**
- * Classe pr�sentation via un menu
- *
- *
- */
 public class Presentation {
 
     private static Scanner scan;
 
-    public Presentation() {
+    public Presentation() {}
 
-    }
-
+    /**
+     * Permet d'afficher notre menu et de gérer les input utilisateur. Il s'agit de notre front controller.
+     */
     public void logiquePresentation() {
         int choix = 0;
         scan = new Scanner(System.in);
@@ -313,12 +305,16 @@ public class Presentation {
         } while (choix != 0);
     }
 
-
+    /**
+     * Permet d'afficher un menu depuis une liste d'éléments et de renvoyer l'input de l'utilisateur.
+     *
+     * @param liste [String[]] La liste des éléments.
+     * @return [int] Le choix de l'utilisateur.
+     */
     private int menu(String[] liste) {
         int choix = 0;
         boolean state = true;
         do {
-
             for (String i : liste) {
                 System.out.println(i);
             }

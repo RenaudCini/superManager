@@ -4,16 +4,18 @@ import entite.SuperPersonnage;
 import metier.Outils;
 import java.sql.*;
 
-
 public class SuperPersonnageDAO {
 
     protected Connection bdd;
 
     public SuperPersonnageDAO() {
-
         bdd = DAO.getInstance();
     }
 
+    /**
+     * Permet de créer un super personnage en base de données.
+     * @param superPersonnage [SuperPersonnage] Un objet de type SuperPersonnage.
+     */
     public void cree(SuperPersonnage superPersonnage) {
         try {
             PreparedStatement prepare = this.bdd.prepareStatement("INSERT INTO super_personnage (nom, identite_secrete, vie_base, degats_base, element_id,commentaire) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);

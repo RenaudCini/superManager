@@ -3,7 +3,6 @@ package donnees;
 import entite.*;
 import metier.Outils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -15,6 +14,12 @@ public class GroupeDAO {
         bdd = DAO.getInstance();
     }
 
+    /**
+     * Permet de récupérer les informations d'un groupe par son ID.
+     *
+     * @param id [int] L'ID du groupe en base de données.
+     * @return [Groupe] Un objet de type Groupe.
+     */
     public Groupe findById(int id) {
         Groupe groupe = new Groupe();
         ArrayList<Heros> listeHeros = new ArrayList<Heros>();
@@ -91,6 +96,11 @@ public class GroupeDAO {
         return groupe;
     }
 
+    /**
+     * Permet de récupérer tous les groupes en base de données.
+     *
+     * @return [ArrayList] Une arraylist de Groupes.
+     */
     public ArrayList<Groupe> findAll() {
         ArrayList<Groupe> listeGroupes = new ArrayList<Groupe>();
         ResultSet result;
@@ -114,6 +124,12 @@ public class GroupeDAO {
         return listeGroupes;
     }
 
+    /**
+     * Permet d'update l'ID du groupe d'un personnage en base de données.
+     *
+     * @param groupeId [int] L'ID du groupe.
+     * @param superPersonnageId [int] L'ID du personnage.
+     */
     public void updatePersonnage(int groupeId, int superPersonnageId) {
         try {
             String updateSql = "UPDATE super_personnage SET groupe_id = ? WHERE id = " + superPersonnageId;
@@ -133,6 +149,11 @@ public class GroupeDAO {
         }
     }
 
+    /**
+     * Permet d'update le nom d'un groupe en base de données.
+     * @param value [String] Le nouveau nom du groupe.
+     * @param groupeId [int] L'ID du groupe à updater.
+     */
     public void updateGroupe(String value, int groupeId) {
         try {
             String updateSql = "UPDATE groupe SET nom = ? WHERE id = " + groupeId;
@@ -146,6 +167,13 @@ public class GroupeDAO {
         }
     }
 
+    /**
+     * Permet de créer un groupe en base de données et d'update les héros du groupe en paramétrant leur groupe_id
+     * sur l'ID du groupe.
+     *
+     * @param nom [String] Le nom du groupe.
+     * @param listeSuper [String] Une liste des ID de super personnages à paramétrer, chaque ID séparé par une virgule.
+     */
     public void creerGroupe(String nom, String listeSuper) {
         try {
             String createSql = "INSERT INTO groupe (nom) VALUES (?)";

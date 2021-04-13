@@ -21,6 +21,11 @@ public class HerosMetier {
         return this;
     }
 
+    /**
+     * Permet de récupérer un héros par son ID de super personnage.
+     * @param id [int] L'ID de super personnage du héros.
+     * @return
+     */
     public Heros getHerosById(int id) {
         HerosDAO herosDAO = new HerosDAO();
         Heros heros = new Heros();
@@ -30,7 +35,7 @@ public class HerosMetier {
 
     /**
      * Permet de créer un affichage récapitulant les informations d'un héros.
-     * @param heros Heros Une instance du héros dont on veut le récapitulatif.
+     * @param heros [Heros] Une instance du héros dont on veut le récapitulatif.
      */
     public void showHerosForUpdate(Heros heros) {
         System.out.println("Fiche du héros : " + heros.getNom());
@@ -57,6 +62,9 @@ public class HerosMetier {
         }
     }
 
+    /**
+     * Permet d'afficher la liste des héros n'appartenant à aucun groupe.
+     */
     public void showAllFree() {
         HerosDAO herosDAO = new HerosDAO();
         ArrayList<Heros> listeHeros = herosDAO.findAllFree();
@@ -66,6 +74,13 @@ public class HerosMetier {
         }
     }
 
+    /**
+     * Permet d'update une caractéristique du héros selon l'input de l'utilisateur, et de récupérer la nouvelle valeur
+     * entrée par l'utilisateur pour update en base de données.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @param heros [Heros] Un objet de type Heros.
+     * @param idUpdate [int] Le choix de l'utilisateur.
+     */
     public void updateHeros(Scanner scan, Heros heros, int idUpdate) {
         HerosDAO herosDAO = new HerosDAO();
         String value;

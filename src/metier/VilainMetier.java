@@ -19,6 +19,11 @@ public class VilainMetier {
         return this;
     }
 
+    /**
+     * Permet de récupérer un vilain par son ID de super personnage.
+     * @param id [int] L'ID de super personnage du vilain.
+     * @return
+     */
     public Vilain getVilainById(int id) {
         VilainDAO vilainDAO = new VilainDAO();
         Vilain vilain = new Vilain();
@@ -26,6 +31,10 @@ public class VilainMetier {
         return vilain;
     }
 
+    /**
+     * Permet de créer un affichage récapitulant les informations d'un vilain.
+     * @param vilain [Vilain] Une instance du vilain dont on veut le récapitulatif.
+     */
     public void showVilainForUpdate(Vilain vilain) {
         System.out.println("Fiche du vilain : " + vilain.getNom());
         System.out.println("1 - Nom : " + vilain.getNom());
@@ -39,7 +48,7 @@ public class VilainMetier {
     }
 
     /**
-     * Permet de créer un affichage d'une liste de héros, utilisée dans le cas d'un update de groupe.
+     * Permet de créer un affichage d'une liste de vilains.
      */
     public void showAllForUpdate() {
         VilainDAO vilainDAO = new VilainDAO();
@@ -51,7 +60,7 @@ public class VilainMetier {
     }
 
     /**
-     * Permet de créer un affichage d'une liste de héros, utilisée dans le cas d'un update de groupe.
+     * Permet d'afficher la liste des vilains n'appartenant à aucun groupe.
      */
     public void showAllFree() {
         VilainDAO vilainDAO = new VilainDAO();
@@ -62,6 +71,13 @@ public class VilainMetier {
         }
     }
 
+    /**
+     * Permet d'update une caractéristique du vilain selon l'input de l'utilisateur, et de récupérer la nouvelle valeur
+     * entrée par l'utilisateur pour update en base de données.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @param vilain [Vilain] Un objet de type Vilain.
+     * @param idUpdate [int] Le choix de l'utilisateur.
+     */
     public void updateVilain(Scanner scan, Vilain vilain, int idUpdate) {
         VilainDAO vilainDAO = new VilainDAO();
         String value;

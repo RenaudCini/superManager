@@ -13,6 +13,11 @@ public class OrganisationMetier {
 
     public OrganisationMetier() {}
 
+    /**
+     * Permet de récupérer une organisation par son ID.
+     * @param id [int] L'ID de l'organisation.
+     * @return
+     */
     public Organisation getOrganisationById(int id) {
         OrganisationDAO organisationDAO = new OrganisationDAO();
         Organisation organisation = new Organisation();
@@ -20,6 +25,10 @@ public class OrganisationMetier {
         return organisation;
     }
 
+    /**
+     * Permet de créer un affichage récapitulant les informations d'une organisation.
+     * @param organisation [Organisation] Une instance de l'organisation dont on veut le récapitulatif.
+     */
     public void showOrganisationForUpdate(Organisation organisation) {
         System.out.println("1 - Nom : " + organisation.getNom());
         System.out.println("2 - Siège social : " + organisation.getSiegeSocial());
@@ -28,7 +37,7 @@ public class OrganisationMetier {
     }
 
     /**
-     * Permet de créer un affichage d'une liste de héros, utilisée dans le cas d'un update de groupe.
+     * Permet de créer un affichage d'une liste d'organisations.
      */
     public void showAllForUpdate() {
         OrganisationDAO organisationDAO = new OrganisationDAO();
@@ -39,6 +48,13 @@ public class OrganisationMetier {
         }
     }
 
+    /**
+     * Permet d'update une caractéristique d'une organisation selon l'input de l'utilisateur, et de récupérer la
+     * nouvelle valeur entrée par l'utilisateur pour update en base de données.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @param organisation [Organisation] Un objet de type Organisation.
+     * @param idUpdate [int] Le choix de l'utilisateur.
+     */
     public void updateOrganisation(Scanner scan, Organisation organisation, int idUpdate) {
         OrganisationDAO organisationDAO = new OrganisationDAO();
         String value;

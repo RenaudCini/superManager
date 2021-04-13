@@ -5,12 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * connexion a la bdd
+ * Class de connexion à la base de données.
  */
-public class DAO {  private static String url = "jdbc:mysql://localhost:3306/supermanager?autoReconnect=true&useSSL=false";
+public class DAO {
+    private static String url = "jdbc:mysql://localhost:3306/supermanager?autoReconnect=true&useSSL=false";
     private static String user = "root";
     private static String passwd = "";
     private static Connection connect;
+
+    /**
+     * Permet de se connecter à la base de données.
+     *
+     * @return [Connection] L'instance de connexion à la base de données.
+     */
     public static Connection getInstance(){
 
         if(connect == null){

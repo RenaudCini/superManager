@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public class HerosDAO extends SuperPersonnageDAO {
 
     /**
-     * permet d'insere un hero en bdd
-     * @param heros
+     * Permet d'insérer un Héros en base de données.
+     * @param heros [Heros] Un objet de type Héros.
      */
     public void cree(Heros heros) {
       super.cree(heros);
@@ -31,6 +31,11 @@ public class HerosDAO extends SuperPersonnageDAO {
         }
     }
 
+    /**
+     * Permet de sélectionner un héros par son ID.
+     * @param id [int] L'ID du héros.
+     * @return [Heros] Un objet de type Heros.
+     */
     public Heros findById(int id) {
         Heros heros = new Heros();
         ResultSet result;
@@ -67,6 +72,10 @@ public class HerosDAO extends SuperPersonnageDAO {
         return heros;
     }
 
+    /**
+     * Permet de récupérer une liste des héros.
+     * @return [ArrayList] Une ArrayList d'objets Heros.
+     */
     public ArrayList<Heros> findAll() {
         ArrayList<Heros> listeHeros = new ArrayList<Heros>();
         ResultSet result;
@@ -90,6 +99,10 @@ public class HerosDAO extends SuperPersonnageDAO {
         return listeHeros;
     }
 
+    /**
+     * Permet de récupérer la liste des héros n'appartenant pas à un groupe.
+     * @return [ArrayList] Une ArrayList d'objets Heros.
+     */
     public ArrayList<Heros> findAllFree() {
         ArrayList<Heros> listeHeros = new ArrayList<Heros>();
         ResultSet result;
@@ -113,6 +126,12 @@ public class HerosDAO extends SuperPersonnageDAO {
         return listeHeros;
     }
 
+    /**
+     * Permet d'update un héros en base de données.
+     * @param column [String] Le nom de la colonne à updater.
+     * @param value [String] La nouvelle valeur à attribuer à la colonne.
+     * @param superPersonnageId [int] L'ID du super personnage.
+     */
     public void update(String column, String value, int superPersonnageId) {
         try {
             String updateSql;

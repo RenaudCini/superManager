@@ -11,7 +11,10 @@ public class ElementMetier {
 
     public ElementMetier() {}
 
-    public void showElement() {
+    /**
+     * Permet d'afficher une liste de tous les éléments au format "ID : nom".
+     */
+    public void showAll() {
         ElementDAO elementDAO = new ElementDAO();
         ArrayList<Element> listeElement = elementDAO.findAll();
         System.out.println("Liste des elements : ");

@@ -16,82 +16,130 @@ public class Organisation {
     private String dateAjout;
 
     public Organisation (String nom,Integer organisationId) {
-
         this.nom = nom;
         this.organisationId = organisationId;
     }
+
     public Organisation (Integer organisationId) {
-
         this.organisationId = organisationId;
     }
+
     public Organisation () {
-
         this.organisationId = organisationId;
     }
 
+    /**
+     * Permet de récupérer l'id de l'organisation.
+     * @return [Integer] L'id de l'organisation.
+     */
     public Integer getOrganisationId() {
         return organisationId;
     }
 
+    /**
+     * Permet de paramétrer l'id de l'organisation.
+     * @param organisationId [Integer] L'id de l'organisation.
+     * @return [this] L'instance de la classe.
+     */
     public Organisation setOrganisationId(Integer organisationId) {
         this.organisationId = organisationId;
         return this;
     }
 
+    /**
+     * Permet de récupérer le nom de l'organisation.
+     * @return [String] Le nom de l'organisation.
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Permet de paramétrer le nom de l'organisation.
+     * @param nom [String] Le nom de l'organisation.
+     * @return [this] L'instance de la classe.
+     */
     public Organisation setNom(String nom) {
         this.nom = nom;
         return this;
     }
 
+    /**
+     * Permet de récupérer le nom du dirigeant de l'organisation.
+     * @return [String] Le nom du dirigeant de l'organisation.
+     */
     public String getNomDirigeant() {
         return nomDirigeant;
     }
 
+    /**
+     * Permet de paramétrer le nom du dirigeant de l'organisation.
+     * @param nomDirigeant [String] Le nom du dirigeant de l'organisation.
+     * @return [this] L'instance de la classe.
+     */
     public Organisation setNomDirigeant(String nomDirigeant) {
         this.nomDirigeant = nomDirigeant;
         return this;
     }
 
-    public String getAdresse() {
-        return siegeSocial;
-    }
-
-    public Organisation setAdresse(String siegeSocial) {
-        this.siegeSocial = siegeSocial;
-        return this;
-    }
-
+    /**
+     * Permet de récupérer le commentaire de l'organisation.
+     * @return [String] Le commentaire  de l'organisation.
+     */
     public String getCommentaire() {
         return commentaire;
     }
 
+    /**
+     * Permet de paramétrer le commentaire de l'organisation.
+     * @param commentaire [String] Le commentaire de l'organisation.
+     * @return [this] L'instance de la classe.
+     */
     public Organisation setCommentaire(String commentaire) {
         this.commentaire = commentaire;
         return this;
     }
 
+    /**
+     * Permet de récupérer la date d'ajout de l'organisation.
+     * @return [String] La date d'ajout de l'organisation.
+     */
     public String getDateAjout() {
         return dateAjout;
     }
 
+    /**
+     * Permet de paramétrer la date d'ajout de l'organisation.
+     * @param dateAjout [String] La date d'ajout de l'organisation.
+     * @return [this] L'instance de la classe.
+     */
     public Organisation setDateAjout(String dateAjout) {
         this.dateAjout = dateAjout;
         return this;
     }
 
+    /**
+     * Permet de récupérer le siège social de l'organisation.
+     * @return [String] Le siège social de l'organisation.
+     */
     public String getSiegeSocial() {
         return siegeSocial;
     }
 
+    /**
+     * Permet de paramétrer le siège social de l'organisation.
+     * @param siegeSocial [String] Le siège social de l'organisation.
+     * @return [this] L'instance de la classe.
+     */
     public Organisation setSiegeSocial(String siegeSocial) {
         this.siegeSocial = siegeSocial;
         return this;
     }
 
+    /**
+     * Permet de créer un affichage contenant les informations de l'organisation.
+     * @return [String] L'affichage.
+     */
     @Override
     public String toString() {
         return
@@ -101,6 +149,12 @@ public class Organisation {
                 ",commentaire =" + commentaire;
 
     }
+
+    /**
+     * Permet de créer une organisation en base de données.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @return [Organisation] Un objet de type Organisation.
+     */
     public Organisation creeOrganisation(Scanner scan) {
 
         Outils.AfficherTextCreationEntite(this, scan);

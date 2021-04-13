@@ -1,8 +1,6 @@
 package metier;
 
 import donnees.GroupeDAO;
-import donnees.HerosDAO;
-import donnees.OrganisationDAO;
 import entite.Groupe;
 import entite.Heros;
 import entite.Vilain;
@@ -15,6 +13,11 @@ public class GroupeMetier {
 
     public GroupeMetier() {}
 
+    /**
+     * Permet de récupérer un groupe par son ID.
+     * @param id [int] L'ID du groupe.
+     * @return [Groupe] Un objet de type Groupe.
+     */
     public Groupe getGroupeById(int id) {
         GroupeDAO groupeDAO = new GroupeDAO();
         Groupe groupe = new Groupe();
@@ -22,6 +25,10 @@ public class GroupeMetier {
         return groupe;
     }
 
+    /**
+     * Permet d'afficher les détails d'un groupe.
+     * @param groupe [Groupe] Un objet de type Groupe.
+     */
     public void showGroupeForUpdate(Groupe groupe) {
         System.out.println("Nom : " + groupe.getNom());
 
@@ -50,6 +57,13 @@ public class GroupeMetier {
         }
     }
 
+    /**
+     * Permet d'update le groupe ou le groupe_id d'un personnage selon l'input de l'utilisateur, et de récupérer la
+     * nouvelle valeur entrée par l'utilisateur pour update en base de données.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @param groupe [Groupe] Un objet de type Groupe.
+     * @param idUpdate [int] Le choix de l'utilisateur.
+     */
     public void updateGroupe(Scanner scan, Groupe groupe, int idUpdate) {
         GroupeDAO groupeDAO = new GroupeDAO();
         HerosMetier herosMetier = new HerosMetier();
@@ -93,6 +107,11 @@ public class GroupeMetier {
         }
     }
 
+    /**
+     * Permet de créer un groupe en base de données.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @return [GroupeMetier] L'instance de l'objet.
+     */
     public GroupeMetier creer(Scanner scan) {
         HerosMetier herosMetier = new HerosMetier();
         VilainMetier vilainMetier = new VilainMetier();

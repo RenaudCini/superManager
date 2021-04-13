@@ -1,8 +1,6 @@
 package donnees;
 
-import entite.Element;
 import entite.Organisation;
-import entite.Vilain;
 import metier.Outils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,11 +12,6 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-
-import entite.Organisation;
-import metier.Outils;
-import java.sql.*;
-
 public class OrganisationDAO {
 
     protected Connection bdd;
@@ -29,8 +22,8 @@ public class OrganisationDAO {
     }
 
     /**
-     * permet d'insérer une organisation en bdd
-     * @param organisation
+     * Permet d'insérer une organisation en base de données.
+     * @param organisation [Organisation] Un objet de type Organisation.
      */
     public void cree(Organisation organisation) {
 
@@ -39,7 +32,7 @@ public class OrganisationDAO {
             PreparedStatement prepare = this.bdd.prepareStatement("INSERT INTO organisation (nom, siege_social, nom_dirigeant, commentaire, date_ajout) VALUES (?, ?, ?, ?, NOW())");
             String commentaire = organisation.getCommentaire() != null ? organisation.getCommentaire() : null;
             //creation d'un array contenant  les variable a prepare
-            Object[] arrayPrepare = new Object[]{organisation.getNom(), organisation.getAdresse(), organisation.getNomDirigeant(), commentaire};
+            Object[] arrayPrepare = new Object[]{organisation.getNom(), organisation.getSiegeSocial(), organisation.getNomDirigeant(), commentaire};
             Outils.prepareRequest(prepare,arrayPrepare);
             prepare.executeUpdate();
             prepare.close();
@@ -47,7 +40,6 @@ public class OrganisationDAO {
             e.printStackTrace();
         }
     }
-
 
 
     public ArrayList<Organisation> findAllByOrganisation() {
@@ -72,6 +64,10 @@ public class OrganisationDAO {
         return organisations;
     }
 
+    /**
+     * Permet de récupérer une liste des organisations.
+     * @return [ArrayList] Une ArrayList d'objets Organisation.
+     */
     public ArrayList<Organisation> findAll() {
         ArrayList<Organisation> listeOrganisations = new ArrayList<Organisation>();
         ResultSet result;
@@ -95,6 +91,11 @@ public class OrganisationDAO {
         return listeOrganisations;
     }
 
+    /**
+     * Permet de sélectionner une organisation par son ID.
+     * @param id [int] L'ID de l'organisation.
+     * @return [Organisation] Un objet de type Organisation.
+     */
     public Organisation findById(int id) {
         Organisation organisation = new Organisation();
         ResultSet result;
@@ -113,6 +114,12 @@ public class OrganisationDAO {
         return organisation;
     }
 
+    /**
+     * Permet d'update une organisation en base de données.
+     * @param column [String] Le nom de la colonne à updater.
+     * @param value [String] La nouvelle valeur à attribuer à la colonne.
+     * @param organisationId [int] L'ID de l'organisation.
+     */
     public void update(String column, String value, int organisationId) {
         try {
             String updateSql = "UPDATE organisation SET " + column + " = ? WHERE id = " + organisationId;

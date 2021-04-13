@@ -18,21 +18,17 @@ public abstract class Outils {
 
 
     public Outils() {
-
         HashMap<String, Integer> people = new HashMap<String, Integer>();
         // Add keys and values (Name, Age)
         people.put("John", 32);
         people.put("Steve", 30);
         people.put("Angie", 33);
-
-
     }
 
     /**
-     * prepare les requete en enoyant un array
-     *
-     * @param prepare
-     * @param arrayPrepare
+     * Permet de préparer les requêtes en envoyant un array.
+     * @param prepare [PreparedStatement] L'instance PreparedStatement de la requête.
+     * @param arrayPrepare [Object[]] L'array des paramètres à insérer dans la requête préparée.
      * @throws SQLException
      */
     public static void prepareRequest(PreparedStatement prepare, Object[] arrayPrepare) throws SQLException {
@@ -50,10 +46,10 @@ public abstract class Outils {
         }
     }
 
-    /***
-     *
-     * @param scan
-     * @return
+    /**
+     * Permet de scanner un int en consommant le retour à la ligne suivant.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @return [Integer] L'entier scanné.
      */
     public static Integer scanInteger(Scanner scan) {
         Integer integer = scan.nextInt();
@@ -62,10 +58,10 @@ public abstract class Outils {
     }
 
     /**
-     * renvoie une String avec la premier lettre en majuscule
+     * Permet de transformer la première lettre d'une chaîne de caractères en majuscule.
      *
-     * @param string
-     * @return
+     * @param string [String] La chaîne à transformer.
+     * @return [String] La chaîne transformée.
      */
     private static String capitalize(String string) {
         return Character.toUpperCase(string.charAt(0)) + string.substring(1);
@@ -73,14 +69,15 @@ public abstract class Outils {
 
 
     /**
-     * demande a l'utilsateeur d'entré une valeur pour chauqe attribut
-     * <p>
-     * Condition
-     * -ID des classe format: [nomClassId]
-     * -fonction to string des classe format a rescpecter: [nom =valeur,]
+     * Permet de demander à l'utilisateur d'entrer une valeur pour chaque attribut d'une class, automatisant ainsi
+     * la création d'une entité.
      *
-     * @param instance
-     * @param scan
+     * Conditions :
+     * - Les classes doivent être en camelCase, ex. : "nomClassId" ;
+     * - Les classes doivent avoir une fonction toString avec le format "nom = valeur," à respecter.
+     *
+     * @param instance [Object] L'instance de l'entité.
+     * @param scan [Scanner] Un objet de type Scanner.
      */
 
     public static Object AfficherTextCreationEntite(Object instance, Scanner scan) {
@@ -121,11 +118,12 @@ public abstract class Outils {
     }
 
     /**
+     * Permet de tester le type des variables d'une class.
      * @param instance
      * @param type
      * @param field
      * @param scan
-     * @param nomAfficher
+     * @param attributDemander
      * @param i
      * @return
      */
@@ -167,7 +165,16 @@ public abstract class Outils {
         return i;
     }
 
-
+    /**
+     * Permet d'automatiser la création d'une entité.
+     * @param result
+     * @param instance
+     * @return
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws SQLException
+     * @throws InvocationTargetException
+     */
     public static Object SetEntite(ResultSet result, Object instance) throws NoSuchMethodException, IllegalAccessException, SQLException, InvocationTargetException {
         Class<?> clazz = instance.getClass();
         Integer i = 0;
@@ -188,7 +195,16 @@ public abstract class Outils {
         return instance;
     }
 
-
+    /**
+     * Permet de récupérer le type d'un attribut de classe.
+     * @param instance
+     * @param field
+     * @param result
+     * @throws NoSuchMethodException
+     * @throws SQLException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     public static void getTypeAttribut(Object instance, Field field, ResultSet result) throws NoSuchMethodException, SQLException, InvocationTargetException, IllegalAccessException {
         Class<?> typeSetter = String.class;
         String setter = "set" + capitalize(field.getName());

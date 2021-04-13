@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class VilainDAO extends SuperPersonnageDAO {
+
     /**
      * Permet d'insérer un vilain en BDD.
      *
@@ -32,6 +33,11 @@ public class VilainDAO extends SuperPersonnageDAO {
         }
     }
 
+    /**
+     * Permet de sélectionner un vilain par son ID.
+     * @param id [int] L'ID du vilain.
+     * @return [Heros] Un objet de type Vilain.
+     */
     public Vilain findById(int id) {
         Vilain vilain = new Vilain();
         ResultSet result;
@@ -55,6 +61,10 @@ public class VilainDAO extends SuperPersonnageDAO {
         return vilain;
     }
 
+    /**
+     * Permet de récupérer une liste des vilains.
+     * @return [ArrayList] Une ArrayList d'objets Vilain.
+     */
     public ArrayList<Vilain> findAll() {
         ArrayList<Vilain> listeVilains = new ArrayList<Vilain>();
         ResultSet result;
@@ -78,6 +88,10 @@ public class VilainDAO extends SuperPersonnageDAO {
         return listeVilains;
     }
 
+    /**
+     * Permet de récupérer la liste des vilains n'appartenant pas à un groupe.
+     * @return [ArrayList] Une ArrayList d'objets Vilain.
+     */
     public ArrayList<Vilain> findAllFree() {
         ArrayList<Vilain> listeVilains = new ArrayList<Vilain>();
         ResultSet result;
@@ -101,6 +115,12 @@ public class VilainDAO extends SuperPersonnageDAO {
         return listeVilains;
     }
 
+    /**
+     * Permet d'update un vilain en base de données.
+     * @param column [String] Le nom de la colonne à updater.
+     * @param value [String] La nouvelle valeur à attribuer à la colonne.
+     * @param superPersonnageId [int] L'ID du super personnage.
+     */
     public void update(String column, String value, int superPersonnageId) {
         try {
             String updateSql;

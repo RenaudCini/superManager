@@ -1,9 +1,6 @@
 package donnees;
 
 import entite.Element;
-import entite.Organisation;
-import metier.Outils;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,10 +10,13 @@ public class ElementDAO {
     protected Connection bdd;
 
     public ElementDAO() {
-
         bdd = DAO.getInstance();
     }
 
+    /**
+     * Permet de récupérer tous les éléments en base de données.
+     * @return [ArrayList] Une ArrayList d'objets Element.
+     */
     public ArrayList<Element> findAll() {
         ArrayList<Element> listeElement = new ArrayList<Element>();
         ResultSet result;
