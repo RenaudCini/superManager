@@ -1,10 +1,7 @@
 package presentation;
 
 import donnees.OrganisationDAO;
-import entite.Groupe;
-import entite.Heros;
-import entite.Vilain;
-import entite.Organisation;
+import entite.*;
 import metier.Outils;
 
 import metier.HerosMetier;
@@ -14,6 +11,7 @@ import metier.OrganisationMetier;
 import metier.GroupeMetier;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -305,6 +303,24 @@ public class Presentation {
                         } while (choixModification != 0);
                         break;
                     case 4:
+                        System.out.println("-----Combat--------------(--");
+                        System.out.println("choississez un groupe");
+                        GroupeMetier groupeMetier = new GroupeMetier();
+
+                        groupeMetier.showAllForUpdate();
+                        int value =  Outils.scanInteger(scan);
+                       Groupe groupe = groupeMetier.getGroupeById(value);
+
+                        ArrayList<Heros> listeHersos = groupe.getListeHeros();
+
+                        ArrayList<Vilain>  listevillain = groupe.getListeVilains();
+
+
+                        for (int i = 0; i < listeHersos.size(); i++) {
+                            System.out.println(listeHersos.get(i).getPouvoir());
+                            scan.nextLine();
+                        }
+
                         break;
                     default:
                         break;
