@@ -51,6 +51,7 @@ public class GroupeMetier {
     public void showAllForUpdate() {
         GroupeDAO groupeDAO = new GroupeDAO();
         ArrayList<Groupe> listeGroupes = groupeDAO.findAll();
+
         System.out.println("Liste des groupes :");
         for (int i = 0; i < listeGroupes.size(); i++) {
             System.out.println("- " + listeGroupes.get(i).getId() + " : " + listeGroupes.get(i).getNom());
