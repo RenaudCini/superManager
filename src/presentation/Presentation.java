@@ -1,6 +1,7 @@
 package presentation;
 
 import donnees.OrganisationDAO;
+import entite.Groupe;
 import entite.Heros;
 import entite.Vilain;
 import entite.Organisation;
@@ -8,6 +9,10 @@ import metier.Outils;
 
 import metier.HerosMetier;
 import metier.Outils;
+import metier.VilainMetier;
+import metier.OrganisationMetier;
+import metier.GroupeMetier;
+
 
 import java.util.Scanner;
 
@@ -86,10 +91,10 @@ public class Presentation {
                     case 3:
                         int choixModification;
                         String[] listeModification = {
-                                "1 - Modifier Super Heros",
-                                "2 - Modifier Super Vilain",
-                                "3 - Modifier Organisation",
-                                "4 - Modifier Groupe",
+                                "1 - Modifier un Super Heros",
+                                "2 - Modifier un Super Vilain",
+                                "3 - Modifier une Organisation",
+                                "4 - Modifier un Groupe",
                                 "5 - Retour au menu principal"
                         };
                         do {
@@ -98,38 +103,98 @@ public class Presentation {
                                 switch (choixModification) {
                                     case 1:
                                         System.out.println("---- MODIFIER UN SUPER HEROS ----");
-                                        System.out.println("Saisissez le nom du super héros à modifier :");
+
+                                        HerosMetier herosMetier = new HerosMetier();
+                                        herosMetier.showAllForUpdate();
+
+                                        System.out.println("Saisissez l'id. du super héros à modifier :");
 
                                         // Récupérer le nom
-                                        String nomHeros = scan.nextLine();
+                                        int idHeros = Outils.scanInteger(scan);
 
                                         // Appeler HerosMetier qui va créer une entité Heros contenant toutes les infos du héros dont on a saisi le nom
                                         // Montrer les attributs du héros associés à des ID
-                                        HerosMetier herosMetier = new HerosMetier();
-                                        Heros heros = herosMetier.getHerosByNom(nomHeros);
+                                        Heros heros = herosMetier.getHerosById(idHeros);
                                         herosMetier.showHerosForUpdate(heros);
 
                                         // Demander quel attribut doit être modifié
                                         System.out.println("Saisissez l'identifiant associé à l'attribut que vous voulez modifier :");
-                                        int idUpdate = Outils.scanInteger(scan);
+                                        int idUpdateHeros = Outils.scanInteger(scan);
 
                                         // Récupérer la nouvelle valeur
                                         // L'enregistrer en BDD
-                                        herosMetier.updateHeros(scan, heros, idUpdate);
+                                        herosMetier.updateHeros(scan, heros, idUpdateHeros);
                                         break;
                                     case 2:
+                                        System.out.println("---- MODIFIER UN SUPER VILAIN ----");
+
+                                        VilainMetier vilainMetier = new VilainMetier();
+                                        vilainMetier.showAllForUpdate();
+
+                                        System.out.println("Saisissez l'id. du super vilain à modifier :");
+
+                                        // Récupérer le nom
+                                        int idVilain = Outils.scanInteger(scan);
+
+                                        // Appeler HerosMetier qui va créer une entité Heros contenant toutes les infos du héros dont on a saisi le nom
+                                        // Montrer les attributs du héros associés à des ID
+                                        Vilain vilain = vilainMetier.getVilainById(idVilain);
+                                        vilainMetier.showVilainForUpdate(vilain);
+
+                                        // Demander quel attribut doit être modifié
+                                        System.out.println("Saisissez l'identifiant associé à l'attribut que vous voulez modifier :");
+                                        int idUpdateVilain = Outils.scanInteger(scan);
+
+                                        // Récupérer la nouvelle valeur
+                                        // L'enregistrer en BDD
+                                        vilainMetier.updateVilain(scan, vilain, idUpdateVilain);
                                         break;
                                     case 3:
+                                        System.out.println("---- MODIFIER UNE ORGANISATION ----");
+
+                                        OrganisationMetier organisationMetier = new OrganisationMetier();
+                                        organisationMetier.showAllForUpdate();
+
+                                        System.out.println("Saisissez l'id. de l'organisation à modifier :");
+
+                                        // Récupérer le nom
+                                        int idOrganisation = Outils.scanInteger(scan);
+
+                                        // Appeler HerosMetier qui va créer une entité Heros contenant toutes les infos du héros dont on a saisi le nom
+                                        // Montrer les attributs du héros associés à des ID
+                                        Organisation orgUpdate = organisationMetier.getOrganisationById(idOrganisation);
+                                        organisationMetier.showOrganisationForUpdate(orgUpdate);
+
+                                        // Demander quel attribut doit être modifié
+                                        System.out.println("Saisissez l'identifiant associé à l'attribut que vous voulez modifier :");
+                                        int idUpdateOrganisation = Outils.scanInteger(scan);
+
+                                        // Récupérer la nouvelle valeur
+                                        // L'enregistrer en BDD
+                                        organisationMetier.updateOrganisation(scan, orgUpdate, idUpdateOrganisation);
                                         break;
                                     case 4:
+                                        System.out.println("---- MODIFIER UN GROUPE ----");
 
+                                        GroupeMetier groupeMetier = new GroupeMetier();
+                                        groupeMetier.showAllForUpdate();
+
+                                        System.out.println("Saisissez l'id. du groupe à modifier :");
+
+                                        int idGroupe = Outils.scanInteger(scan);
+
+                                        Groupe groupeUpdate = groupeMetier.getGroupeById(idGroupe);
+                                        groupeMetier.showGroupeForUpdate(groupeUpdate);
+
+                                        int idUpdateGroupe = Outils.scanInteger(scan);
+
+                                        groupeMetier.updateGroupe(scan, groupeUpdate, idUpdateGroupe);
                                         break;
                                     case 5:
-
                                         choixModification = 0;
                                         break;
                                     default:
-
+                                        break;
                                 }
                             }
                         } while (choixModification != 0);

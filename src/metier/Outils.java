@@ -171,11 +171,19 @@ public abstract class Outils {
     public static Object SetEntite(ResultSet result, Object instance) throws NoSuchMethodException, IllegalAccessException, SQLException, InvocationTargetException {
         Class<?> clazz = instance.getClass();
         Integer i = 0;
+        boolean element = true;
+        while (element) {
+            for (Field field : clazz.getDeclaredFields()) {
 
-        for (Field field : clazz.getDeclaredFields()) {
+                getTypeAttribut(instance, field, result);
 
-            getTypeAttribut(instance, field, result);
-
+            }
+            if (Arrays.toString(new Class[]{clazz.getSuperclass()}).equals("[class java.lang.Object]")) {
+                element = false;
+            } else {
+                //on lui redefini la class par sa super classe
+                clazz = clazz.getSuperclass();
+            }
         }
         return instance;
     }
@@ -186,7 +194,7 @@ public abstract class Outils {
         String setter = "set" + capitalize(field.getName());
         String nameAttribut = field.getName();
         String type = field.getType().toString();
-        System.out.println(field.getName());
+        //System.out.println(field.getName());
 
         if (type.equals("class java.lang.Integer")) {
             try {

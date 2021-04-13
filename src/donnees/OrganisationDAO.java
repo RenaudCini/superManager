@@ -1,14 +1,19 @@
 package donnees;
 
+import entite.Element;
 import entite.Organisation;
+import entite.Vilain;
 import metier.Outils;
 
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 
 import entite.Organisation;
 import metier.Outils;
@@ -65,6 +70,60 @@ public class OrganisationDAO {
         }
 
         return organisations;
+    }
+
+    public ArrayList<Organisation> findAll() {
+        ArrayList<Organisation> listeOrganisations = new ArrayList<Organisation>();
+        ResultSet result;
+        try {
+            // Récupération des informations du groupe :
+            Statement st = this.bdd.createStatement();
+            result = st.executeQuery("SELECT id, nom FROM organisation ORDER BY nom");
+
+            while (result.next()) {
+                Organisation organisation = new Organisation();
+                organisation.setOrganisationId(result.getInt("id"));
+                organisation.setNom(result.getString("nom"));
+                listeOrganisations.add(organisation);
+            }
+
+            st.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listeOrganisations;
+    }
+
+    public Organisation findById(int id) {
+        Organisation organisation = new Organisation();
+        ResultSet result;
+        try {
+            Statement st = this.bdd.createStatement();
+            result = st.executeQuery("SELECT id as organisationId, nom, siege_social as siegeSocial, nom_dirigeant as nomDirigeant, commentaire, date_ajout as dateAjout FROM organisation WHERE id = '" + id + "'");
+
+            result.next();
+
+            Outils.SetEntite(result, organisation);
+
+            st.close();
+        } catch (SQLException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return organisation;
+    }
+
+    public void update(String column, String value, int organisationId) {
+        try {
+            String updateSql = "UPDATE organisation SET " + column + " = ? WHERE id = " + organisationId;
+            PreparedStatement prepare = this.bdd.prepareStatement(updateSql);
+            Object[] arrayPrepare = new Object[]{value};
+            Outils.prepareRequest(prepare,arrayPrepare);
+            prepare.executeUpdate();
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
