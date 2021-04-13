@@ -2,6 +2,7 @@ package entite;
 
 
 import donnees.VilainDAO;
+import metier.ElementMetier;
 import metier.Outils;
 
 import java.util.Scanner;
@@ -68,6 +69,8 @@ public class Vilain extends SuperPersonnage {
      * @return Vilain L'instance de l'objet Vilain créée.
      */
     public Vilain creerVilain(Scanner scan) {
+        ElementMetier elementMetier = new ElementMetier();
+        elementMetier.showElement();
         System.out.println("Element");
         String nameElement = scan.nextLine();
         Element element = new Element(nameElement);

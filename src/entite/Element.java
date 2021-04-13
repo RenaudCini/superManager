@@ -5,6 +5,9 @@ public class Element {
     private Integer elementId =1;
     private String nom;
 
+    public Element() {
+    }
+
     public Element(String nom) {
         this.nom = nom;
     }

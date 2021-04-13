@@ -2,6 +2,7 @@ package entite;
 
 
 import donnees.HerosDAO;
+import metier.ElementMetier;
 import metier.Outils;
 
 import java.util.Scanner;
@@ -86,10 +87,13 @@ public class Heros extends SuperPersonnage {
      */
     public Heros creeHero(Scanner scan) {
 
+        ElementMetier elementMetier = new ElementMetier();
+
         // TODO: 04/04/2021  a supprimer
         System.out.println("Id de l'organisation");
         Integer idOrganisation = Outils.scanInteger(scan);
         Organisation organisation = new Organisation(idOrganisation);
+        elementMetier.showElement();
         System.out.println("Element");
 
         String nameElement = scan.nextLine();
