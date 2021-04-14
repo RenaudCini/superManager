@@ -15,7 +15,7 @@ public class HerosDAO extends SuperPersonnageDAO {
      * Permet d'insérer un Héros en base de données.
      * @param heros [Heros] Un objet de type Héros.
      */
-    public void cree(Heros heros) {
+    public void creer(Heros heros) {
       super.cree(heros);
 
         try {

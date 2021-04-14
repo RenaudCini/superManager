@@ -82,33 +82,13 @@ public class Vilain extends SuperPersonnage {
     @Override
     public String toString() {
         return
-                "faiblesse =" + faiblesse +
-                        ",degats de la faiblesse =" + degatsFaiblesse +
-                        ",malveillance =" + malveillance +
-                        ",nom =" + getNom()+
-                        ",identite Secrete =" + getIdentiteSecrete() +
-                        ",commentaire =" + getCommentaire() +
-                        ",point de vie =" + getPdv() +
-                        ",degats =" + getDegats();
-    }
-
-    /**
-     * Permet de créer un vilain.
-     * @param scan [Scanner] Un objet de type Scanner.
-     * @return Vilain L'instance de l'objet Vilain créée.
-     */
-    public Vilain creerVilain(Scanner scan) {
-        ElementMetier elementMetier = new ElementMetier();
-        elementMetier.showAll();
-        System.out.println("Element");
-        String nameElement = scan.nextLine();
-        Element element = new Element(nameElement);
-        setElement(element);
-        getElement().setId(1);
-
-        Outils.AfficherTextCreationEntite(this, scan);
-        VilainDAO vilainDAO = new VilainDAO();
-        vilainDAO.creer(this);
-        return this;
+                "Saisissez le nom de la faiblesse de votre vilain :=" + faiblesse +
+                        ",Saisissez les dégâts subis par la faiblesse de votre vilain :=" + degatsFaiblesse +
+                        ",Saisissez le niveau de malveillance de votre vilain :=" + malveillance +
+                        ",Saisissez le nom de votre vilain :=" + getNom()+
+                        ",Saisissez l'identité secrète de votre vilain (ne sera pas affichée) :=" + getIdentiteSecrete() +
+                        ",Saisissez un commentaire pour votre vilain (entrée pour laisser ce champ vide) :=" + getCommentaire() +
+                        ",Saisissez les points de vie de votre vilain :=" + getPdv() +
+                        ",Saisissez les dégâts de base de votre vilain :=" + getDegats();
     }
 }

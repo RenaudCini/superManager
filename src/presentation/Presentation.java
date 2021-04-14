@@ -66,25 +66,23 @@ public class Presentation {
                                         System.out.println("---- CREER UN SUPER HEROS ----");
                                         System.out.println("Saisissez les information suivantes :");
 
-                                        Heros heros = new Heros();
-                                        heros.creeHero(scan);
+                                        HerosMetier herosMetier = new HerosMetier();
+                                        herosMetier.creerHeros(scan);
 
                                         break;
                                     case 2:
                                         System.out.println("---- CREER UN SUPER VILAIN ----");
                                         System.out.println("Saisissez les informations suivantes :");
 
-                                        Vilain vilain = new Vilain();
-                                        vilain.creerVilain(scan);
-
+                                        VilainMetier vilainMetier = new VilainMetier();
+                                        vilainMetier.creerVilain(scan);
                                         break;
                                     case 3:
                                         System.out.println("---- CREER UNE ORGANISATION ----");
                                         System.out.println("Saisissez les informations suivantes :");
 
-                                        Organisation organisation = new Organisation();
-                                        organisation.creeOrganisation(scan);
-
+                                        OrganisationMetier organisationMetier = new OrganisationMetier();
+                                        organisationMetier.creerOrganisation(scan);
                                         break;
                                     case 4:
                                         System.out.println("---- CREER UN GROUPE ----");

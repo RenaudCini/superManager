@@ -143,24 +143,13 @@ public class Organisation {
     @Override
     public String toString() {
         return
-                "nom =" + nom +
-                ",nom dirigeant =" + nomDirigeant +
-                ",Siege sociale =" + siegeSocial +
-                ",commentaire =" + commentaire;
+                "Saisissez le nom de l'organisation :=" + nom +
+                ",Saisissez le nom du dirigeant :=" + nomDirigeant +
+                ",Saisissez l'adresse du siège social :=" + siegeSocial +
+                ",Saisissez un commentaire (entrée pour laisser le champ vide) :=" + commentaire;
 
     }
 
-    /**
-     * Permet de créer une organisation en base de données.
-     * @param scan [Scanner] Un objet de type Scanner.
-     * @return [Organisation] Un objet de type Organisation.
-     */
-    public Organisation creeOrganisation(Scanner scan) {
 
-        Outils.AfficherTextCreationEntite(this, scan);
-        OrganisationDAO organisationDAO = new OrganisationDAO();
-        organisationDAO.cree(this);
-        return this;
-    }
 
 }

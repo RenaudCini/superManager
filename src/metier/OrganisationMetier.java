@@ -49,6 +49,18 @@ public class OrganisationMetier {
     }
 
     /**
+     * Permet de créer une organisation en base de données.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @return [Organisation] Un objet de type Organisation.
+     */
+    public void creerOrganisation(Scanner scan) {
+        Organisation organisation = new Organisation();
+        Outils.AfficherTextCreationEntite(organisation, scan);
+        OrganisationDAO organisationDAO = new OrganisationDAO();
+        organisationDAO.creer(organisation);
+    }
+
+    /**
      * Permet d'update une caractéristique d'une organisation selon l'input de l'utilisateur, et de récupérer la
      * nouvelle valeur entrée par l'utilisateur pour update en base de données.
      * @param scan [Scanner] Un objet de type Scanner.

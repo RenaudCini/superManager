@@ -202,6 +202,10 @@ public class GroupeDAO {
         }
     }
 
+    /**
+     * Permet de supprimer un groupe en base de données.
+     * @param groupeId [int] L'ID du groupe à supprimer.
+     */
     public void deleteGroupe(int groupeId) {
         try {
             String updateSql = "DELETE FROM groupe WHERE id = ?";

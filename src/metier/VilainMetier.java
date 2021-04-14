@@ -2,6 +2,7 @@ package metier;
 
 import donnees.HerosDAO;
 import donnees.VilainDAO;
+import entite.Element;
 import entite.Heros;
 import entite.Vilain;
 
@@ -69,6 +70,27 @@ public class VilainMetier {
         for (int i = 0; i < listeVilains.size(); i++) {
             System.out.println("- " + listeVilains.get(i).getSuperPersonnageId() + " : " + listeVilains.get(i).getNom());
         }
+    }
+
+    /**
+     * Permet de créer un vilain.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @return Vilain L'instance de l'objet Vilain créée.
+     */
+    public void creerVilain(Scanner scan) {
+        Vilain vilain = new Vilain();
+        ElementMetier elementMetier = new ElementMetier();
+
+        elementMetier.showAll();
+        System.out.println("Saisissez l'id. de l'élément de la faiblesse de votre vilain :");
+        int idElement = Outils.scanInteger(scan);
+        Element element = new Element();
+        element.setId(idElement);
+        vilain.setElement(element);
+
+        Outils.AfficherTextCreationEntite(vilain, scan);
+        VilainDAO vilainDAO = new VilainDAO();
+        vilainDAO.creer(vilain);
     }
 
     /**

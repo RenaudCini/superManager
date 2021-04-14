@@ -1,7 +1,9 @@
 package metier;
 
 import donnees.HerosDAO;
+import entite.Element;
 import entite.Heros;
+import entite.Organisation;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -72,6 +74,34 @@ public class HerosMetier {
         for (int i = 0; i < listeHeros.size(); i++) {
             System.out.println("- " + listeHeros.get(i).getSuperPersonnageId() + " : " + listeHeros.get(i).getNom());
         }
+    }
+
+    /**
+     * Permet de créer un héros en base de données.
+     * @param scan [Scanner] Un objet de type Scanner.
+     * @return [this] L'instance de la classe.
+     */
+    public void creerHeros(Scanner scan) {
+        Heros heros = new Heros();
+        ElementMetier elementMetier = new ElementMetier();
+        OrganisationMetier organisationMetier = new OrganisationMetier();
+
+        organisationMetier.showAllForUpdate();
+        System.out.println("Saisissez l'id. de l'organisation de votre héros :");
+        Integer idOrganisation = Outils.scanInteger(scan);
+        Organisation organisation = new Organisation(idOrganisation);
+        heros.setOrganisation(organisation);
+
+        elementMetier.showAll();
+        System.out.println("Saisissez l'id. de l'élément du pouvoir de votre héros :");
+        int idElement = Outils.scanInteger(scan);
+        Element element = new Element();
+        element.setId(idElement);
+        heros.setElement(element);
+
+        Outils.AfficherTextCreationEntite(heros, scan);
+        HerosDAO herosDAO = new HerosDAO();
+        herosDAO.creer(heros);
     }
 
     /**

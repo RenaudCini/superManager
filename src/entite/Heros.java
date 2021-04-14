@@ -91,41 +91,14 @@ public class Heros extends SuperPersonnage {
     @Override
     public String toString() {
         return
-                        "pouvoir =" + pouvoir +
-                        ",degats du Pouvoir =" + degatsPouvoir +
-                        ",nom =" + getNom()+
-                        ",identite Secrete =" + getIdentiteSecrete() +
-                        ",commentaire =" + getCommentaire() +
-                        ",point de vie =" + getPdv() +
-                        ",degats =" + getDegats();
+                        "Saisissez le nom du pouvoir de votre héros :=" + pouvoir +
+                        ",Saisissez les dégâts du pouvoir de votre héros :=" + degatsPouvoir +
+                        ",Saisissez le nom de votre héros :=" + getNom()+
+                        ",Saisissez l'identité secrète :=" + getIdentiteSecrete() +
+                        ",Saisissez un commentaire pour votre héros (entrée pour laisser ce champ vide) :=" + getCommentaire() +
+                        ",Saisissez les points de vie de votre héros :=" + getPdv() +
+                        ",Saisissez les dégâts de base de votre héros :=" + getDegats();
     }
 
-    /**
-     * Permet de créer un héros en base de données.
-     * @param scan [Scanner] Un objet de type Scanner.
-     * @return [this] L'instance de la classe.
-     */
-    public Heros creeHero(Scanner scan) {
 
-        ElementMetier elementMetier = new ElementMetier();
-
-        // TODO: 04/04/2021  a supprimer
-        System.out.println("Id de l'organisation");
-        Integer idOrganisation = Outils.scanInteger(scan);
-        Organisation organisation = new Organisation(idOrganisation);
-        elementMetier.showAll();
-        System.out.println("Element");
-
-        String nameElement = scan.nextLine();
-        Element element = new Element(nameElement);
-        setElement(element);
-        getElement().setId(1);
-        setOrganisation(organisation);
-        getOrganisation().setOrganisationId(1);
-
-        Outils.AfficherTextCreationEntite(this, scan);
-        HerosDAO herosDAO = new HerosDAO();
-        herosDAO.cree(this);
-        return this;
-    }
 }

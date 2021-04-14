@@ -25,7 +25,7 @@ public class OrganisationDAO {
      * Permet d'insérer une organisation en base de données.
      * @param organisation [Organisation] Un objet de type Organisation.
      */
-    public void cree(Organisation organisation) {
+    public void creer(Organisation organisation) {
 
         try {
 
