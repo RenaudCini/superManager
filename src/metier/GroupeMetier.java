@@ -79,7 +79,7 @@ public class GroupeMetier {
                 break;
             case 2:
                 int value2;
-                herosMetier.showAllForUpdate();
+                herosMetier.showAllFree();
                 System.out.println("Saisissez l'id d'un héros à ajouter au groupe " + groupe.getNom() + " :");
                 value2 = Outils.scanInteger(scan);
                 groupeDAO.updatePersonnage(groupe.getId(), value2);
@@ -92,7 +92,7 @@ public class GroupeMetier {
                 break;
             case 4:
                 int value4;
-                vilainMetier.showAllForUpdate();
+                vilainMetier.showAllFree();
                 System.out.println("Saisissez l'id d'un vilain à ajouter au groupe " + groupe.getNom() + " :");
                 value4 = Outils.scanInteger(scan);
                 groupeDAO.updatePersonnage(groupe.getId(), value4);
