@@ -201,4 +201,17 @@ public class GroupeDAO {
             e.printStackTrace();
         }
     }
+
+    public void deleteGroupe(int groupeId) {
+        try {
+            String updateSql = "DELETE FROM groupe WHERE id = ?";
+            PreparedStatement prepare = this.bdd.prepareStatement(updateSql);
+            Object[] arrayPrepare = new Object[]{groupeId};
+            Outils.prepareRequest(prepare,arrayPrepare);
+            prepare.executeUpdate();
+            prepare.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -142,13 +142,18 @@ public class GroupeMetier {
         return this;
     }
 
-    public void combat(ArrayList<Heros> listeHeros, ArrayList<Vilain> listeVilains) {
+    public void combat(Groupe groupe) {
+
+        // Création des listes de héros et vilains :
+        ArrayList<Heros> listeHeros = groupe.getListeHeros();
+        ArrayList<Vilain> listeVilains = groupe.getListeVilains();
         System.out.println("---- DEBUT DU COMBAT ----");
         System.out.println("");
 
         // Création de l'ordre de jeu des personnages :
         // On crée également 2 tableaux contenant les listes des id héros et des id vilains (pour le ciblage) :
         ArrayList<Integer> ordre = new ArrayList<Integer>();
+        ArrayList<Integer> ordreNotMoving = new ArrayList<Integer>();
         ArrayList<Integer> idHeros = new ArrayList<Integer>();
         ArrayList<Integer> idVilains = new ArrayList<Integer>();
 
@@ -157,11 +162,13 @@ public class GroupeMetier {
 
         for (int i = 0; i < listeHeros.size(); i++) {
             ordre.add(listeHeros.get(i).getSuperPersonnageId());
+            ordreNotMoving.add(listeHeros.get(i).getSuperPersonnageId());
             idHeros.add(listeHeros.get(i).getSuperPersonnageId());
             mapHeros.put(listeHeros.get(i).getSuperPersonnageId(), listeHeros.get(i));
         }
         for (int i = 0; i < listeVilains.size(); i++) {
             ordre.add(listeVilains.get(i).getSuperPersonnageId());
+            ordreNotMoving.add(listeVilains.get(i).getSuperPersonnageId());
             idVilains.add(listeVilains.get(i).getSuperPersonnageId());
             mapVilains.put(listeVilains.get(i).getSuperPersonnageId(), listeVilains.get(i));
         }
@@ -262,21 +269,34 @@ public class GroupeMetier {
                 System.out.println("Ni un héros, ni un vilain.");
             }
 
-
-
             // Sortie de boucle :
             if (idHeros.isEmpty() || idVilains.isEmpty()) {
                 looping = false;
+
+                GroupeDAO groupeDAO = new GroupeDAO();
+
+                // Suppression du groupe et update des personnages du groupe pour passer leur groupe_id à 0 :
+                int idGroupe = groupe.getId();
+                groupeDAO.deleteGroupe(idGroupe);
+
+                for (int compteur = 0; compteur < groupe.getListeHeros().size(); compteur++) {
+                    int idSuperPersonnage = groupe.getListeHeros().get(compteur).getSuperPersonnageId();
+                    groupeDAO.updatePersonnage(0, idSuperPersonnage);
+                }
+
+                for (int compteur = 0; compteur < groupe.getListeVilains().size(); compteur++) {
+                    int idSuperPersonnage = groupe.getListeVilains().get(compteur).getSuperPersonnageId();
+                    groupeDAO.updatePersonnage(0, idSuperPersonnage);
+                }
+
                 if (idHeros.isEmpty() && !idVilains.isEmpty()) {
                     System.out.println("---- FIN DU COMBAT ----");
                     System.out.println("Les vilains l'emportent !");
                     System.out.println("");
-
                 } else if (!idHeros.isEmpty() && idVilains.isEmpty()) {
                     System.out.println("---- FIN DU COMBAT ----");
                     System.out.println("Les héros l'emportent !");
                     System.out.println("");
-
                 }
             }
         }

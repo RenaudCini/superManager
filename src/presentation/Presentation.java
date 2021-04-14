@@ -318,10 +318,7 @@ public class Presentation {
                         int value =  Outils.scanInteger(scan);
                         Groupe groupe = groupeMetier.getGroupeById(value);
 
-                        // Création des listes de héros et vilains :
-                        ArrayList<Heros> listeHeros = groupe.getListeHeros();
-                        ArrayList<Vilain> listeVilains = groupe.getListeVilains();
-                        groupeMetier.combat(listeHeros, listeVilains);
+                        groupeMetier.combat(groupe);
 
                         break;
                     default:
